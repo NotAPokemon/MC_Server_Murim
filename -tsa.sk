@@ -1,0 +1,3 @@
+on right click:
+   send "thas gay" to player
+   open chest inventory with 3 rows named "&c&nRepulse Ring&r &fOptions" to player

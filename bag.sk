@@ -1,0 +1,634 @@
+on inventory click:
+    if name of player's current inventory contains "&c&nRepulse Ring":
+        cancel event
+        if name of player's current inventory contains "&fOptions":
+            if name of clicked slot contains "&c&l&nCore:":
+                set {_id} to name of slot 22 of player's current inventory
+                open chest inventory with 2 rows named "&c&nRepulse Ring&r &fSelection" to player
+                set slot 2 of player's current inventory to iron ingot named "&7Low Grade"
+                set slot 3 of player's current inventory to gold ingot named "&aMid Grade"
+                set slot 4 of player's current inventory to diamond named "&6High Grade"
+                set slot 5 of player's current inventory to netherite ingot named "&4Supream Grade"
+                if true is true:
+                    if name of clicked slot is "&c&l&nCore:&r &7Light Gray Monster Core":
+                        set slot 0 of player's current inventory to glowing light gray dye named "&7Light Gray Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{lg1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{lg2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{lg3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{lg4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &8Gray Monster Core":
+                        set slot 0 of player's current inventory to glowing gray dye named "&8Gray Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{g1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{g2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{g3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{g4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &0Black Monster Core":
+                        set slot 0 of player's current inventory to glowing black dye named "&0Black Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{b1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{b2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{b3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{b4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &3Brown Monster Core":
+                        set slot 0 of player's current inventory to glowing brown dye named "&3Brown Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{br1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{br2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{br3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{br4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &cRed Monster Core":
+                        set slot 0 of player's current inventory to glowing red dye named "&cRed Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{r1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{r2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{r3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{r4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &6Orange Monster Core":
+                        set slot 0 of player's current inventory to glowing orange dye named "&6Orange Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{o1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{o2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{o3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{o4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &eYellow Monster Core":
+                        set slot 0 of player's current inventory to glowing yellow dye named "&eYellow Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{y1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{y2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{y3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{y4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &aLime Monster Core":
+                        set slot 0 of player's current inventory to glowing lime dye named "&aLime Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{ml1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{ml2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{ml3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{ml4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &2Green Monster Core":
+                        set slot 0 of player's current inventory to glowing green dye named "&2Green Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{gr1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{gr2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{gr3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{gr4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &3Cyan Monster Core":
+                        set slot 0 of player's current inventory to glowing cyan dye named "&3Cyan Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{c1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{c2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{c3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{c4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &bLight Blue Monster Core":
+                        set slot 0 of player's current inventory to glowing light blue dye named "&bLight Blue Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{lb1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{lb2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{lb3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{lb4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &1Blue Monster Core":
+                        set slot 0 of player's current inventory to glowing blue dye named "&1Blue Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{bl1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{bl2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{bl3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{bl4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &5Purple Monster Core":
+                        set slot 0 of player's current inventory to glowing purple dye named "&5Purple Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{p1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{p2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{p3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{p4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &5Magenta Monster Core":
+                        set slot 0 of player's current inventory to glowing magenta dye named "&5Magenta Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{m1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{m2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{m3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{m4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &dPink Monster Core":
+                        set slot 0 of player's current inventory to glowing pink dye named "&dPink Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{pi1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{pi2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{pi3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{pi4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &fWhite Monster Core":
+                        set slot 0 of player's current inventory to glowing white dye named "&fWhite Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{w1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{w2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{w3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{w4::%{_id}%}%"
+                    else if name of clicked slot is "&c&l&nCore:&r &lImmortal Monster Core":
+                        set slot 0 of player's current inventory to glowing totem of undying named "&lImmortal Monster Core"
+                        set lore of slot 2 of player's current inventory to "&7Amount: &e%{und1::%{_id}%}%"
+                        set lore of slot 3 of player's current inventory to "&7Amount: &e%{und2::%{_id}%}%"
+                        set lore of slot 4 of player's current inventory to "&7Amount: &e%{und3::%{_id}%}%"
+                        set lore of slot 5 of player's current inventory to "&7Amount: &e%{und4::%{_id}%}%"
+                        
+                set slot 13 of player's current inventory to anvil named {_id}
+                set slot 14 of player's current inventory to barrier named "&cBack"
+
+        else if name of player's current inventory contains "&fSelection":
+            if name of clicked slot is "&cBack":
+                openPlayersBag(player, name of slot 13 of player's current inventory)
+            else if name of clicked slot is name of slot 0 of player's current inventory:
+                if lore of clicked slot is set:
+                    if true is true:
+                        if lore of clicked slot is "&7Low Grade":
+                            set {_num} to 1
+                        else if lore of clicked slot is "&aMid Grade":
+                            set {_num} to 2
+                        else if lore of clicked slot is "&6High Grade":
+                            set {_num} to 3
+                        else if lore of clicked slot is "&4Supream Grade":
+                            set {_num} to 4
+                        if name of clicked slot contains "&7Light":
+                            set {_ty} to "lg"
+                        else if name of clicked slot contains "&8Gray":
+                            set {_ty} to "g"
+                        else if name of clicked slot contains "&0Black":
+                            set {_ty} to "b"
+                        else if name of clicked slot contains "&3Brown":
+                            set {_ty} to "br"
+                        else if name of clicked slot contains "&cRed":
+                            set {_ty} to "r"
+                        else if name of clicked slot contains "&6Orange":
+                            set {_ty} to "o"
+                        else if name of clicked slot contains "&eYellow":
+                            set {_ty} to "y"
+                        else if name of clicked slot contains "&aLime":
+                            set {_ty} to "ml"
+                        else if name of clicked slot contains "&2Green":
+                            set {_ty} to "gr"
+                        else if name of clicked slot contains "&3Cyan":
+                            set {_ty} to "c"
+                        else if name of clicked slot contains "&bLight":
+                            set {_ty} to "lb"
+                        else if name of clicked slot contains "&1Blue":
+                            set {_ty} to "bl"
+                        else if name of clicked slot contains "&5Purple":
+                            set {_ty} to "p"
+                        else if name of clicked slot contains "&5Magenta":
+                            set {_ty} to "m"
+                        else if name of clicked slot contains "&dPink":
+                            set {_ty} to "pi"
+                        else if name of clicked slot contains "&fWhite":
+                            set {_ty} to "w"
+                        else if name of clicked slot contains "&lImmortal":
+                            set {_ty} to "und"
+                    
+                    set {_a} to item amount of clicked slot
+                    add {_a} to {%{_ty}%%{_num}%::%name of slot 13 of player's current inventory%}
+                    updateInventorySack(player)
+                    set slot index of clicked slot of player's inventory to air
+            else if name of clicked slot is "&7Low Grade":
+                if true is true:
+                    if name of slot 0 of player's current inventory contains "&7Light":
+                        set {_ty} to "lg"
+                    else if name of slot 0 of player's current inventory contains "&8Gray":
+                        set {_ty} to "g"
+                    else if name of slot 0 of player's current inventory contains "&0Black":
+                        set {_ty} to "b"
+                    else if name of slot 0 of player's current inventory contains "&3Brown":
+                        set {_ty} to "br"
+                    else if name of slot 0 of player's current inventory contains "&cRed":
+                        set {_ty} to "r"
+                    else if name of slot 0 of player's current inventory contains "&6Orange":
+                        set {_ty} to "o"
+                    else if name of slot 0 of player's current inventory contains "&eYellow":
+                        set {_ty} to "y"
+                    else if name of slot 0 of player's current inventory contains "&aLime":
+                        set {_ty} to "ml"
+                    else if name of slot 0 of player's current inventory contains "&2Green":
+                        set {_ty} to "gr"
+                    else if name of slot 0 of player's current inventory contains "&3Cyan":
+                        set {_ty} to "c"
+                    else if name of slot 0 of player's current inventory contains "&bLight":
+                        set {_ty} to "lb"
+                    else if name of slot 0 of player's current inventory contains "&1Blue":
+                        set {_ty} to "bl"
+                    else if name of slot 0 of player's current inventory contains "&5Purple":
+                        set {_ty} to "p"
+                    else if name of slot 0 of player's current inventory contains "&5Magenta":
+                        set {_ty} to "m"
+                    else if name of slot 0 of player's current inventory contains "&dPink":
+                        set {_ty} to "pi"
+                    else if name of slot 0 of player's current inventory contains "&fWhite":
+                        set {_ty} to "w"
+                    else if name of slot 0 of player's current inventory contains "&lImmortal":
+                        set {_ty} to "und"
+                if {%{_ty}%1::%name of slot 13 of player's current inventory%} > 0:
+                    add -1 to {%{_ty}%1::%name of slot 13 of player's current inventory%}
+                    updateInventorySack(player)
+                    set {_i} to slot 0 of player's current inventory
+                    set lore of {_i} to "&7Low Grade"
+                    give {_i} to player
+            else if name of clicked slot is "&aMid Grade":
+                if true is true:
+                    if name of slot 0 of player's current inventory contains "&7Light":
+                        set {_ty} to "lg"
+                    else if name of slot 0 of player's current inventory contains "&8Gray":
+                        set {_ty} to "g"
+                    else if name of slot 0 of player's current inventory contains "&0Black":
+                        set {_ty} to "b"
+                    else if name of slot 0 of player's current inventory contains "&3Brown":
+                        set {_ty} to "br"
+                    else if name of slot 0 of player's current inventory contains "&cRed":
+                        set {_ty} to "r"
+                    else if name of slot 0 of player's current inventory contains "&6Orange":
+                        set {_ty} to "o"
+                    else if name of slot 0 of player's current inventory contains "&eYellow":
+                        set {_ty} to "y"
+                    else if name of slot 0 of player's current inventory contains "&aLime":
+                        set {_ty} to "ml"
+                    else if name of slot 0 of player's current inventory contains "&2Green":
+                        set {_ty} to "gr"
+                    else if name of slot 0 of player's current inventory contains "&3Cyan":
+                        set {_ty} to "c"
+                    else if name of slot 0 of player's current inventory contains "&bLight":
+                        set {_ty} to "lb"
+                    else if name of slot 0 of player's current inventory contains "&1Blue":
+                        set {_ty} to "bl"
+                    else if name of slot 0 of player's current inventory contains "&5Purple":
+                        set {_ty} to "p"
+                    else if name of slot 0 of player's current inventory contains "&5Magenta":
+                        set {_ty} to "m"
+                    else if name of slot 0 of player's current inventory contains "&dPink":
+                        set {_ty} to "pi"
+                    else if name of slot 0 of player's current inventory contains "&fWhite":
+                        set {_ty} to "w"
+                    else if name of slot 0 of player's current inventory contains "&lImmortal":
+                        set {_ty} to "und"
+                if {%{_ty}%2::%name of slot 13 of player's current inventory%} > 0:
+                    add -1 to {%{_ty}%2::%name of slot 13 of player's current inventory%}
+                    updateInventorySack(player)
+                    set {_i} to slot 0 of player's current inventory
+                    set lore of {_i} to "&aMid Grade"
+                    give {_i} to player
+            else if name of clicked slot is "&6High Grade":
+                if true is true:
+                    if name of slot 0 of player's current inventory contains "&7Light":
+                        set {_ty} to "lg"
+                    else if name of slot 0 of player's current inventory contains "&8Gray":
+                        set {_ty} to "g"
+                    else if name of slot 0 of player's current inventory contains "&0Black":
+                        set {_ty} to "b"
+                    else if name of slot 0 of player's current inventory contains "&3Brown":
+                        set {_ty} to "br"
+                    else if name of slot 0 of player's current inventory contains "&cRed":
+                        set {_ty} to "r"
+                    else if name of slot 0 of player's current inventory contains "&6Orange":
+                        set {_ty} to "o"
+                    else if name of slot 0 of player's current inventory contains "&eYellow":
+                        set {_ty} to "y"
+                    else if name of slot 0 of player's current inventory contains "&aLime":
+                        set {_ty} to "ml"
+                    else if name of slot 0 of player's current inventory contains "&2Green":
+                        set {_ty} to "gr"
+                    else if name of slot 0 of player's current inventory contains "&3Cyan":
+                        set {_ty} to "c"
+                    else if name of slot 0 of player's current inventory contains "&bLight":
+                        set {_ty} to "lb"
+                    else if name of slot 0 of player's current inventory contains "&1Blue":
+                        set {_ty} to "bl"
+                    else if name of slot 0 of player's current inventory contains "&5Purple":
+                        set {_ty} to "p"
+                    else if name of slot 0 of player's current inventory contains "&5Magenta":
+                        set {_ty} to "m"
+                    else if name of slot 0 of player's current inventory contains "&dPink":
+                        set {_ty} to "pi"
+                    else if name of slot 0 of player's current inventory contains "&fWhite":
+                        set {_ty} to "w"
+                    else if name of slot 0 of player's current inventory contains "&lImmortal":
+                        set {_ty} to "und"
+                if {%{_ty}%3::%name of slot 13 of player's current inventory%} > 0:
+                    add -1 to {%{_ty}%3::%name of slot 13 of player's current inventory%}
+                    updateInventorySack(player)
+                    set {_i} to slot 0 of player's current inventory
+                    set lore of {_i} to "&6High Grade"
+                    give {_i} to player
+            else if name of clicked slot is "&4Supream Grade":
+                if true is true:
+                    if name of slot 0 of player's current inventory contains "&7Light":
+                        set {_ty} to "lg"
+                    else if name of slot 0 of player's current inventory contains "&8Gray":
+                        set {_ty} to "g"
+                    else if name of slot 0 of player's current inventory contains "&0Black":
+                        set {_ty} to "b"
+                    else if name of slot 0 of player's current inventory contains "&3Brown":
+                        set {_ty} to "br"
+                    else if name of slot 0 of player's current inventory contains "&cRed":
+                        set {_ty} to "r"
+                    else if name of slot 0 of player's current inventory contains "&6Orange":
+                        set {_ty} to "o"
+                    else if name of slot 0 of player's current inventory contains "&eYellow":
+                        set {_ty} to "y"
+                    else if name of slot 0 of player's current inventory contains "&aLime":
+                        set {_ty} to "ml"
+                    else if name of slot 0 of player's current inventory contains "&2Green":
+                        set {_ty} to "gr"
+                    else if name of slot 0 of player's current inventory contains "&3Cyan":
+                        set {_ty} to "c"
+                    else if name of slot 0 of player's current inventory contains "&bLight":
+                        set {_ty} to "lb"
+                    else if name of slot 0 of player's current inventory contains "&1Blue":
+                        set {_ty} to "bl"
+                    else if name of slot 0 of player's current inventory contains "&5Purple":
+                        set {_ty} to "p"
+                    else if name of slot 0 of player's current inventory contains "&5Magenta":
+                        set {_ty} to "m"
+                    else if name of slot 0 of player's current inventory contains "&dPink":
+                        set {_ty} to "pi"
+                    else if name of slot 0 of player's current inventory contains "&fWhite":
+                        set {_ty} to "w"
+                    else if name of slot 0 of player's current inventory contains "&lImmortal":
+                        set {_ty} to "und"
+                if {%{_ty}%4::%name of slot 13 of player's current inventory%} > 0:
+                    add -1 to {%{_ty}%4::%name of slot 13 of player's current inventory%}
+                    updateInventorySack(player)
+                    set {_i} to slot 0 of player's current inventory
+                    set lore of {_i} to "&4Supream Grade"
+                    give {_i} to player
+
+
+
+
+command /setAllAmounts [<integer>] [<text>]:
+    trigger:
+        if player is op:
+            set {_l} to arg-2
+            if arg-2 is not set:
+                set {_l} to line 1 of lore of player's tool
+            loop 4 times:
+                set {und%loop-value%::%{_l}%} to arg-1
+                set {w%loop-value%::%{_l}%} to arg-1
+                set {pi%loop-value%::%{_l}%} to arg-1
+                set {m%loop-value%::%{_l}%} to arg-1
+                set {p%loop-value%::%{_l}%} to arg-1
+                set {bl%loop-value%::%{_l}%} to arg-1
+                set {lb%loop-value%::%{_l}%} to arg-1
+                set {c%loop-value%::%{_l}%} to arg-1
+                set {gr%loop-value%::%{_l}%} to arg-1
+                set {ml%loop-value%::%{_l}%} to arg-1
+                set {y%loop-value%::%{_l}%} to arg-1
+                set {o%loop-value%::%{_l}%} to arg-1
+                set {r%loop-value%::%{_l}%} to arg-1
+                set {br%loop-value%::%{_l}%} to arg-1
+                set {b%loop-value%::%{_l}%} to arg-1
+                set {g%loop-value%::%{_l}%} to arg-1
+                set {lg%loop-value%::%{_l}%} to arg-1
+
+
+
+command /storage:
+    trigger:
+        open chest inventory with 6 rows named "&6Storage" to player
+        set {_n} to 0
+        loop {storage::%player%::*}:
+            set slot {_n} of player's current inventory to loop-value
+            add 1 to {_n}
+        
+on inventory close:
+    if name of event-inventory is "&6Storage":
+        delete {storage::%player%::*}
+        loop all items in event-inventory:
+            add loop-value to {storage::%player%::*}
+
+
+every 10 seconds:
+    set {_l} to "&fInfi"
+    loop 4 times:
+        set {und%loop-value%::%{_l}%} to 999
+        set {w%loop-value%::%{_l}%} to 999
+        set {pi%loop-value%::%{_l}%} to 999
+        set {m%loop-value%::%{_l}%} to 999
+        set {p%loop-value%::%{_l}%} to 999
+        set {bl%loop-value%::%{_l}%} to 999
+        set {lb%loop-value%::%{_l}%} to 999
+        set {c%loop-value%::%{_l}%} to 999
+        set {gr%loop-value%::%{_l}%} to 999
+        set {ml%loop-value%::%{_l}%} to 999
+        set {y%loop-value%::%{_l}%} to 999
+        set {o%loop-value%::%{_l}%} to 999
+        set {r%loop-value%::%{_l}%} to 999
+        set {br%loop-value%::%{_l}%} to 999
+        set {b%loop-value%::%{_l}%} to 999
+        set {g%loop-value%::%{_l}%} to 999
+        set {lg%loop-value%::%{_l}%} to 999
+
+                    
+function updateInventorySack(p: player):
+    if true is true:
+        if name of slot 0 of {_p}'s current inventory contains "&7Light":
+            set {_ty} to "lg"
+        else if name of slot 0 of {_p}'s current inventory contains "&8Gray":
+            set {_ty} to "g"
+        else if name of slot 0 of {_p}'s current inventory contains "&0Black":
+            set {_ty} to "b"
+        else if name of slot 0 of {_p}'s current inventory contains "&3Brown":
+            set {_ty} to "br"
+        else if name of slot 0 of {_p}'s current inventory contains "&cRed":
+            set {_ty} to "r"
+        else if name of slot 0 of {_p}'s current inventory contains "&6Orange":
+            set {_ty} to "o"
+        else if name of slot 0 of {_p}'s current inventory contains "&eYellow":
+            set {_ty} to "y"
+        else if name of slot 0 of {_p}'s current inventory contains "&aLime":
+            set {_ty} to "ml"
+        else if name of slot 0 of {_p}'s current inventory contains "&2Green":
+            set {_ty} to "gr"
+        else if name of slot 0 of {_p}'s current inventory contains "&3Cyan":
+            set {_ty} to "c"
+        else if name of slot 0 of {_p}'s current inventory contains "&bLight":
+            set {_ty} to "lb"
+        else if name of slot 0 of {_p}'s current inventory contains "&1Blue":
+            set {_ty} to "bl"
+        else if name of slot 0 of {_p}'s current inventory contains "&5Purple":
+            set {_ty} to "p"
+        else if name of slot 0 of {_p}'s current inventory contains "&5Magenta":
+            set {_ty} to "m"
+        else if name of slot 0 of {_p}'s current inventory contains "&dPink":
+            set {_ty} to "pi"
+        else if name of slot 0 of {_p}'s current inventory contains "&fWhite":
+            set {_ty} to "w"
+        else if name of slot 0 of {_p}'s current inventory contains "&lImmortal":
+            set {_ty} to "und"
+    set slot 2 of {_p}'s current inventory to iron ingot named "&7Low Grade"
+    set slot 3 of {_p}'s current inventory to gold ingot named "&aMid Grade"
+    set slot 4 of {_p}'s current inventory to diamond named "&6High Grade"
+    set slot 5 of {_p}'s current inventory to netherite ingot named "&4Supream Grade"
+    loop 4 times:
+        set lore of slot 1 + loop-value of {_p}'s current inventory to "&7Amount: &e%{%{_ty}%%loop-value%::%name of slot 13 of {_p}'s current inventory%}%"
+
+
+
+on load:
+  add "A" to {Clist::*}
+  add "B" to {Clist::*}
+  add "C" to {Clist::*}
+  add "D" to {Clist::*}
+  add "E" to {Clist::*}
+  add "F" to {Clist::*}
+  add "G" to {Clist::*}
+  add "H" to {Clist::*}
+  add "I" to {Clist::*}
+  add "J" to {Clist::*}
+  add "K" to {Clist::*}
+  add "L" to {Clist::*}
+  add "M" to {Clist::*}
+  add "N" to {Clist::*}
+  add "O" to {Clist::*}
+  add "P" to {Clist::*}
+  add "Q" to {Clist::*}
+  add "R" to {Clist::*}
+  add "S" to {Clist::*}
+  add "T" to {Clist::*}
+  add "U" to {Clist::*}
+  add "V" to {Clist::*}
+  add "W" to {Clist::*}
+  add "X" to {Clist::*}
+  add "Y" to {Clist::*}
+  add "Z" to {Clist::*}
+  add "a" to {Clist::*}
+  add "b" to {Clist::*}
+  add "c" to {Clist::*}
+  add "d" to {Clist::*}
+  add "e" to {Clist::*}
+  add "f" to {Clist::*}
+  add "g" to {Clist::*}
+  add "h" to {Clist::*}
+  add "i" to {Clist::*}
+  add "j" to {Clist::*}
+  add "k" to {Clist::*}
+  add "l" to {Clist::*}
+  add "m" to {Clist::*}
+  add "n" to {Clist::*}
+  add "o" to {Clist::*}
+  add "p" to {Clist::*}
+  add "q" to {Clist::*}
+  add "r" to {Clist::*}
+  add "s" to {Clist::*}
+  add "t" to {Clist::*}
+  add "u" to {Clist::*}
+  add "v" to {Clist::*}
+  add "w" to {Clist::*}
+  add "x" to {Clist::*}
+  add "y" to {Clist::*}
+  add "z" to {Clist::*}
+  add "1" to {Clist::*}
+  add "2" to {Clist::*}
+  add "3" to {Clist::*}
+  add "4" to {Clist::*}
+  add "5" to {Clist::*}
+  add "6" to {Clist::*}
+  add "7" to {Clist::*}
+  add "8" to {Clist::*}
+  add "9" to {Clist::*}
+  add "0" to {Clist::*}
+
+function RandValue(list: objects) :: object:
+    set {_l} to size of {_list::*}
+    set {_ch} to 100/{_l}
+    while {_res} is not set:
+        loop {_l} times:
+            chance of {_ch}%:
+                set {_res} to {_list::%loop-value%}
+                return {_res}
+    
+
+function randomUID(a: number) :: text:
+    set {_txt} to "&0"
+    loop {_a} times:
+        set {_c} to RandValue({Clist::*})
+        set {_txt} to "%{_txt}%%{_c}%"
+    return {_txt}
+    
+
+
+command /clearbagdata [<text>]:
+    trigger:
+        if player is op:
+            if arg-1 is not set:
+                set {_arg1} to "all"
+            else:
+                set {_arg1} to arg-1
+            if {_arg1} is "all":
+                loop 4 times:
+                    delete {und%loop-value%::*}
+                    delete {w%loop-value%::*}
+                    delete {pi%loop-value%::*}
+                    delete {m%loop-value%::*}
+                    delete {p%loop-value%::*}
+                    delete {bl%loop-value%::*}
+                    delete {lb%loop-value%::*}
+                    delete {c%loop-value%::*}
+                    delete {gr%loop-value%::*}
+                    delete {ml%loop-value%::*}
+                    delete {y%loop-value%::*}
+                    delete {o%loop-value%::*}
+                    delete {r%loop-value%::*}
+                    delete {br%loop-value%::*}
+                    delete {b%loop-value%::*}
+                    delete {g%loop-value%::*}
+                    delete {lg%loop-value%::*}
+            else:
+                set {_l} to arg-1
+                loop 4 times:
+                    delete {und%loop-value%::%{_l}%} 
+                    delete {w%loop-value%::%{_l}%} 
+                    delete {pi%loop-value%::%{_l}%} 
+                    delete {m%loop-value%::%{_l}%} 
+                    delete {p%loop-value%::%{_l}%} 
+                    delete {bl%loop-value%::%{_l}%} 
+                    delete {lb%loop-value%::%{_l}%} 
+                    delete {c%loop-value%::%{_l}%} 
+                    delete {gr%loop-value%::%{_l}%} 
+                    delete {ml%loop-value%::%{_l}%} 
+                    delete {y%loop-value%::%{_l}%} 
+                    delete {o%loop-value%::%{_l}%} 
+                    delete {r%loop-value%::%{_l}%} 
+                    delete {br%loop-value%::%{_l}%} 
+                    delete {b%loop-value%::%{_l}%} 
+                    delete {g%loop-value%::%{_l}%} 
+                    delete {lg%loop-value%::%{_l}%} 
+
+function openPlayersBag(p: player, t: text):
+    open chest inventory with 3 rows named "&c&nRepulse Ring&r &fOptions" to {_p}
+    set slot 0 of {_p}'s current inventory to glowing light gray dye named "&c&l&nCore:&r &7Light Gray Monster Core"
+    set slot 1 of {_p}'s current inventory to glowing gray dye named "&c&l&nCore:&r &8Gray Monster Core"
+    set slot 2 of {_p}'s current inventory to glowing black dye named "&c&l&nCore:&r &0Black Monster Core"
+    set slot 3 of {_p}'s current inventory to glowing brown dye named "&c&l&nCore:&r &3Brown Monster Core"
+    set slot 4 of {_p}'s current inventory to glowing red dye named "&c&l&nCore:&r &cRed Monster Core"
+    set slot 5 of {_p}'s current inventory to glowing orange dye named "&c&l&nCore:&r &6Orange Monster Core"
+    set slot 6 of {_p}'s current inventory to glowing yellow dye named "&c&l&nCore:&r &eYellow Monster Core"
+    set slot 7 of {_p}'s current inventory to glowing lime dye named "&c&l&nCore:&r &aLime Monster Core"
+    set slot 8 of {_p}'s current inventory to glowing green dye named "&c&l&nCore:&r &2Green Monster Core"
+    set slot 9 of {_p}'s current inventory to glowing cyan dye named "&c&l&nCore:&r &3Cyan Monster Core"
+    set slot 10 of {_p}'s current inventory to glowing light blue dye named "&c&l&nCore:&r &bLight Blue Monster Core"
+    set slot 11 of {_p}'s current inventory to glowing blue dye named "&c&l&nCore:&r &1Blue Monster Core"
+    set slot 12 of {_p}'s current inventory to glowing purple dye named "&c&l&nCore:&r &5Purple Monster Core"
+    set slot 13 of {_p}'s current inventory to glowing magenta dye named "&c&l&nCore:&r &5Magenta Monster Core"
+    set slot 14 of {_p}'s current inventory to glowing pink dye named "&c&l&nCore:&r &dPink Monster Core"
+    set slot 15 of {_p}'s current inventory to glowing white dye named "&c&l&nCore:&r &fWhite Monster Core"
+    set slot 16 of {_p}'s current inventory to glowing totem of undying named "&c&l&nCore:&r &lImmortal Monster Core"
+    set slot 22 of {_p}'s current inventory to anvil named "%{_t}%"
+
+
+
+
+
+on right click:
+    if player is not sneaking:
+        if name of player's tool is "&c&nRepulse Ring":
+            if lore of player's tool is not set:
+                set {_l} to randomUID(11)
+                add {_l} to {AllBags::*}
+                loop 4 times:
+                    set {und%loop-value%::%{_l}%} to 0
+                    set {w%loop-value%::%{_l}%} to 0
+                    set {pi%loop-value%::%{_l}%} to 0
+                    set {m%loop-value%::%{_l}%} to 0
+                    set {p%loop-value%::%{_l}%} to 0
+                    set {bl%loop-value%::%{_l}%} to 0
+                    set {lb%loop-value%::%{_l}%} to 0
+                    set {c%loop-value%::%{_l}%} to 0
+                    set {gr%loop-value%::%{_l}%} to 0
+                    set {ml%loop-value%::%{_l}%} to 0
+                    set {y%loop-value%::%{_l}%} to 0
+                    set {o%loop-value%::%{_l}%} to 0
+                    set {r%loop-value%::%{_l}%} to 0
+                    set {br%loop-value%::%{_l}%} to 0
+                    set {b%loop-value%::%{_l}%} to 0
+                    set {g%loop-value%::%{_l}%} to 0
+                    set {lg%loop-value%::%{_l}%} to 0
+                set lore of player's tool to {_l}
+            set {_l} to line 1 of lore of player's tool
+            openPlayersBag(player, {_l})

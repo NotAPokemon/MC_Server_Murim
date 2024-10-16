@@ -1,0 +1,1737 @@
+on right click:
+    set {_player} to player
+    if {_player}'s tool is written book:
+        if {_player} is sneaking:
+            if {realm::%author of player's tool%} is totem of undying or white stained glass pane or command block or dirt: 
+                cancel event
+                set {hi::*} to pages of {_player}'s tool
+                read({hi::*}, {_player}, {realm::%author of player's tool%})
+        else:
+            if {realm::%author of player's tool%} is dirt: 
+                cancel event
+    if name of player's tool is "&cInfo Plate":
+        make player execute command "/fullinfo %player%"
+    
+on join:
+    set {realm::%player's name%} to {realm::%player%}
+    set {realm::KorgiAssassin} to dirt
+    if {played::%player%} is not true:
+        rollt(player)
+        changeRealm(player, "light gray")
+        set {power::%player%} to 1
+        loop {startingI::*}:
+            give player loop-value
+        set {played::%player%} to true
+    else:
+        loop 2 times:
+            send "%loop-value%" to player
+
+
+function getRealm(p: player) :: object:
+    return {realm::%{_p}%}
+
+function getQI(p: player) :: number:
+    return {l1c::%{_p}%} + {l2c::%{_p}%} + {l3c::%{_p}%}
+
+function getRealmColor(p: player) :: text:
+    if {realm::%{_p}%} is command block:
+        return "&c&l"
+    else if {realm::%{_p}%} is totem of undying:
+        return "&e&l"
+    else if {realm::%{_p}%} is white stained glass pane:
+        return "&l"
+    else if {realm::%{_p}%} is pink stained glass pane:
+        return "&d"
+    else if {realm::%{_p}%} is magenta stained glass pane:
+        return "&5"
+    else if {realm::%{_p}%} is purple stained glass pane:
+        return "&5"
+    else if {realm::%{_p}%} is blue stained glass pane:
+        return "&1"
+    else if {realm::%{_p}%} is light blue stained glass pane:
+        return "&b"
+    else if {realm::%{_p}%} is cyan stained glass pane:
+        return "&3"
+    else if {realm::%{_p}%} is green stained glass pane:
+        return "&2"
+    else if {realm::%{_p}%} is lime stained glass pane:
+        return "&a"
+    else if {realm::%{_p}%} is yellow stained glass pane:
+        return "&e"
+    else if {realm::%{_p}%} is orange stained glass pane:
+        return "&6"
+    else if {realm::%{_p}%} is red stained glass pane:
+        return "&c"
+    else if {realm::%{_p}%} is brown stained glass pane:
+        return "&3"
+    else if {realm::%{_p}%} is black stained glass pane:
+        return "&0"
+    else if {realm::%{_p}%} is gray stained glass pane:
+        return "&8"
+    else if {realm::%{_p}%} is light gray stained glass pane:
+        return "&7"
+
+#########################         
+on death:
+    if victim is not a player:
+        if {power::%victim%} is set:
+            delete {power::%victim%}
+
+#unused variable deletion
+##########################
+
+
+
+
+################
+on damage:
+    if {power::%victim's UUID%} is set:
+        set the damage to (the damage/{power::%victim's UUID%})
+        if time of world of victim's location is day:
+            if victim is on fire:
+                if attacker is not a player:
+                    set the damage to the damage * {power::%victim's UUID%}
+                
+
+           
+    if {power::%attacker's UUID%} is set:
+        set the damage to the damage * {power::%attacker's UUID%} 
+
+#Power multiplyer/ damage divider
+#################
+
+
+        
+
+
+function rollt(player: player):
+    chance of 95%:
+        set {talent::%{_player}%} to 1
+    chance of 10%:
+        set {talent::%{_player}%} to 2
+    chance of 10%:
+        set {talent::%{_player}%} to 3
+    chance of 5%:
+        set {talent::%{_player}%} to 4
+    if {talent::%{_player}%} is not set:
+        set {talent::%{_player}%} to 1
+
+command /rolltalent [<offline player>]:
+    trigger:
+        if player is op:
+            rollt(arg-1)
+            make player execute command "viewtalent %arg-1%"          
+
+command /viewtalent [<offline player>]:
+    trigger:
+        if arg-1 is set:
+            send "%arg-1's name%: has a talent of %{talent::%arg-1%}%" to player
+        else:
+            send "%player's name%: has a talent of %{talent::%player%}%" to player
+
+function orc2(player: player):
+    set {hi::*} to pages of {_player}'s tool
+    read({hi::*}, {_player}, {realm::%author of {_player}'s tool%})
+        
+function read(list: objects, player: player, a: object):
+    loop {_list::*}:
+        if loop-value is "看":
+            see({_player})
+        else if loop-value is "停止":
+            stop({_player})
+        else if loop-value is "打開":
+            start({_player})
+        else if loop-value is "收集":
+            Gather({_player})
+        else if loop-value is "突破":
+            BreakThrough({_player})
+        else if loop-value is "灰色的":
+            set {bc::%{_player}%} to gray
+        else if loop-value is "黑色的":
+            set {bc::%{_player}%} to black
+        else if loop-value is "棕色的":
+            set {bc::%{_player}%} to brown
+        else if loop-value is "紅色的":
+            set {bc::%{_player}%} to red
+        else if loop-value is "橘子":
+            set {bc::%{_player}%} to orange
+        else if loop-value is "黃色的":
+            set {bc::%{_player}%} to yellow
+        else if loop-value is "萊姆":
+            set {bc::%{_player}%} to lime
+        else if loop-value is "綠色的":
+            set {bc::%{_player}%} to green
+        else if loop-value is "青色":
+            set {bc::%{_player}%} to cyan
+        else if loop-value is "淺藍色":
+            set {bc::%{_player}%} to light blue
+        else if loop-value is "藍色的":
+            set {bc::%{_player}%} to blue
+        else if loop-value is "紫色的":
+            set {bc::%{_player}%} to purple
+        else if loop-value is "品紅":
+            set {bc::%{_player}%} to magenta
+        else if loop-value is "粉紅色的":
+            set {bc::%{_player}%} to pink
+        else if loop-value is "白色的":
+            set {bc::%{_player}%} to white
+        else:
+            set {_n1} to loop-value parsed as number
+            if {_a} is white stained glass pane or totem of undying:
+                if {_n1} > 10:
+                    set {_n1} to 0 - {_n1}
+                    make {_player} execute command "condenseQI 1"
+            if {tn::%{_player}%} is true:
+                remove {_player}'s tool from {_player}'s inventory
+            toggleN({_player}, {_n1})
+
+function toggleN(player: player, n: number):
+    if {tn::%{_player}%} is true:
+        set {tn::%{_player}%} to false
+        remove {tnn::%{_player}%} from {additional::%{_player}%}
+    else:
+        set {tn::%{_player}%} to true
+        set {tnn::%{_player}%} to {_n}
+        add {_n} to {additional::%{_player}%}
+
+function readError(player: player, msg: text):
+    if {cd2::%{_player}%} is not set:
+        send {_msg} to {_player}
+        set {cd2::%{_player}%} to true
+        orc2({_player})
+        delete {cd2::%{_player}%}
+
+function changeRealm(player: player, color: text):
+    if {_color} is "gray":
+        set {g1l::%{_player}%} to gray stained glass pane named "0%%"
+        set {g2l::%{_player}%} to gray stained glass pane named "0%%"
+        set {g3l::%{_player}%} to gray stained glass pane named "0%%"
+        set {realm::%{_player}%} to gray stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 5
+    else if {_color} is "light gray":
+        set {g1l::%{_player}%} to light gray stained glass pane named "0%%"
+        set {g2l::%{_player}%} to light gray stained glass pane named "0%%"
+        set {g3l::%{_player}%} to light gray stained glass pane named "0%%"
+        set {realm::%{_player}%} to light gray stained glass pane
+        set {lg1::%{_player}%} to 10000
+        set {lg2::%{_player}%} to 30000
+        set {lg3::%{_player}%} to 50000
+        set {power::%{_player}%} to 1
+    else if {_color} is "black":
+        set {g1l::%{_player}%} to black stained glass pane named "0%%"
+        set {g2l::%{_player}%} to black stained glass pane named "0%%"
+        set {g3l::%{_player}%} to black stained glass pane named "0%%"
+        set {realm::%{_player}%} to black stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 9
+    else if {_color} is "brown":
+        set {g1l::%{_player}%} to brown stained glass pane named "0%%"
+        set {g2l::%{_player}%} to brown stained glass pane named "0%%"
+        set {g3l::%{_player}%} to brown stained glass pane named "0%%"
+        set {realm::%{_player}%} to brown stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 13
+    else if {_color} is "red":
+        set {g1l::%{_player}%} to red stained glass pane named "0%%"
+        set {g2l::%{_player}%} to red stained glass pane named "0%%"
+        set {g3l::%{_player}%} to red stained glass pane named "0%%"
+        set {realm::%{_player}%} to red stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 17
+    else if {_color} is "orange":
+        set {g1l::%{_player}%} to orange stained glass pane named "0%%"
+        set {g2l::%{_player}%} to orange stained glass pane named "0%%"
+        set {g3l::%{_player}%} to orange stained glass pane named "0%%"
+        set {realm::%{_player}%} to orange stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 21
+    else if {_color} is "yellow":
+        set {g1l::%{_player}%} to yellow stained glass pane named "0%%"
+        set {g2l::%{_player}%} to yellow stained glass pane named "0%%"
+        set {g3l::%{_player}%} to yellow stained glass pane named "0%%"
+        set {realm::%{_player}%} to yellow stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 25
+    else if {_color} is "lime":
+        set {g1l::%{_player}%} to lime stained glass pane named "0%%"
+        set {g2l::%{_player}%} to lime stained glass pane named "0%%"
+        set {g3l::%{_player}%} to lime stained glass pane named "0%%"
+        set {realm::%{_player}%} to lime stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 29
+    else if {_color} is "green":
+        set {g1l::%{_player}%} to green stained glass pane named "0%%"
+        set {g2l::%{_player}%} to green stained glass pane named "0%%"
+        set {g3l::%{_player}%} to green stained glass pane named "0%%"
+        set {realm::%{_player}%} to green stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 33
+    else if {_color} is "cyan":
+        set {g1l::%{_player}%} to cyan stained glass pane named "0%%"
+        set {g2l::%{_player}%} to cyan stained glass pane named "0%%"
+        set {g3l::%{_player}%} to cyan stained glass pane named "0%%"
+        set {realm::%{_player}%} to cyan stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 37
+    else if {_color} is "light blue":
+        set {g1l::%{_player}%} to light blue stained glass pane named "0%%"
+        set {g2l::%{_player}%} to light blue stained glass pane named "0%%"
+        set {g3l::%{_player}%} to light blue stained glass pane named "0%%"
+        set {realm::%{_player}%} to light blue stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 41
+    else if {_color} is "blue":
+        set {g1l::%{_player}%} to blue stained glass pane named "0%%"
+        set {g2l::%{_player}%} to blue stained glass pane named "0%%"
+        set {g3l::%{_player}%} to blue stained glass pane named "0%%"
+        set {realm::%{_player}%} to blue stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 45
+    else if {_color} is "purple":
+        set {g1l::%{_player}%} to purple stained glass pane named "0%%"
+        set {g2l::%{_player}%} to purple stained glass pane named "0%%"
+        set {g3l::%{_player}%} to purple stained glass pane named "0%%"
+        set {realm::%{_player}%} to purple stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 49
+    else if {_color} is "magenta":
+        set {g1l::%{_player}%} to magenta stained glass pane named "0%%"
+        set {g2l::%{_player}%} to magenta stained glass pane named "0%%"
+        set {g3l::%{_player}%} to magenta stained glass pane named "0%%"
+        set {realm::%{_player}%} to magenta stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 53
+    else if {_color} is "pink":
+        set {g1l::%{_player}%} to pink stained glass pane named "0%%"
+        set {g2l::%{_player}%} to pink stained glass pane named "0%%"
+        set {g3l::%{_player}%} to pink stained glass pane named "0%%"
+        set {realm::%{_player}%} to pink stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 57
+    else if {_color} is "white":
+        set {g1l::%{_player}%} to white stained glass pane named "0%%"
+        set {g2l::%{_player}%} to white stained glass pane named "0%%"
+        set {g3l::%{_player}%} to white stained glass pane named "0%%"
+        set {realm::%{_player}%} to white stained glass pane
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 61
+    else if {_color} is "undying":
+        set {g1l::%{_player}%} to totem of undying named "0%%"
+        set {g2l::%{_player}%} to totem of undying named "0%%"
+        set {g3l::%{_player}%} to totem of undying named "0%%"
+        set {realm::%{_player}%} to totem of undying
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 99997
+    else if {_color} is "admin":
+        set {g1l::%{_player}%} to command block named "0%%"
+        set {g2l::%{_player}%} to command block named "0%%"
+        set {g3l::%{_player}%} to command block named "0%%"
+        set {realm::%{_player}%} to command block
+        set {_num} to 3
+        set {lg1::%{_player}%} to {lg1::%{_player}%} * {_num}
+        set {lg2::%{_player}%} to {lg2::%{_player}%} * {_num}
+        set {lg3::%{_player}%} to {lg3::%{_player}%} * {_num}
+        set {power::%{_player}%} to 9999999999999999997
+    
+    set {l1::%{_player}%} to false
+    set {l2::%{_player}%} to false
+    set {l3::%{_player}%} to false
+    set {l1c::%{_player}%} to 0
+    set {l2c::%{_player}%} to 0
+    set {l3c::%{_player}%} to 0
+
+function ca(player: player, n: number) :: boolean:
+    if {l1::%{_player}%} is true:
+        if {l2::%{_player}%} is true:
+            if {l3::%{_player}%} is true:
+                return false
+            else:
+                addl3({_player}, {_n})
+        else:
+            addl2({_player}, {_n})
+    else:
+        addl1({_player}, {_n})
+
+#######
+on right click:
+    if lore of player's tool contains "&b1000":
+        set {_i} to item amount of player's tool - 1
+        set {_i} to {_i} of {QIBall}
+        set slot index of player's selected hotbar slot of player's inventory to {_i}
+        ca(player, 1000)
+
+#claim condensed qi
+######
+
+
+
+function removeCulti(player: player, n: number) :: number:
+    if {l3c::%{_player}%} + {l2c::%{_player}%} + {l1c::%{_player}%} > {_n}:
+        if {l3::%{_player}%} is true:
+            if {l3c::%{_player}%} < {_n}:
+                set {_n} to {_n} - {l3c::%{_player}%}
+                set {l3c::%{_player}%} to 0
+                set {l3::%{_player}%} to false
+                add -1 to {power::%{_player}%}
+                removeCulti({_player}, {_n})
+            else:
+                set {l3c::%{_player}%} to {l3c::%{_player}%} - {_n}
+                set {l3::%{_player}%} to false
+                add -1 to {power::%{_player}%}
+                return 0
+        else if {l3c::%{_player}%} > 0:
+            if {l3c::%{_player}%} < {_n}:
+                set {_n} to {_n} - {l3c::%{_player}%}
+                set {l3c::%{_player}%} to 0
+                set {l3::%{_player}%} to false
+                add -1 to {power::%{_player}%}
+                removeCulti({_player}, {_n})
+            else:
+                set {l3c::%{_player}%} to {l3c::%{_player}%} - {_n}
+                set {l3::%{_player}%} to false
+                return 0
+        else if {l2::%{_player}%} is true:
+            if {l2c::%{_player}%} < {_n}:
+                set {_n} to {_n} - {l2c::%{_player}%}
+                set {l2c::%{_player}%} to 0
+                add -1 to {power::%{_player}%}
+                set {l2::%{_player}%} to false
+                removeCulti({_player}, {_n})
+            else:
+                set {l2c::%{_player}%} to {l2c::%{_player}%} - {_n}
+                set {l2::%{_player}%} to false
+                add -1 to {power::%{_player}%}
+                return 0
+        else if {l2c::%{_player}%} > 0:
+            if {l2c::%{_player}%} < {_n}:
+                set {_n} to {_n} - {l2c::%{_player}%}
+                set {l2c::%{_player}%} to 0
+                set {l2::%{_player}%} to false
+                add -1 to {power::%{_player}%}
+                removeCulti({_player}, {_n})
+            else:
+                set {l2c::%{_player}%} to {l2c::%{_player}%} - {_n}
+                set {l2::%{_player}%} to false
+                return 0
+        else:
+            if {l1c::%{_player}%} < {_n}:
+                set {_n} to {_n} - {l1c::%{_player}%}
+                set {l1c::%{_player}%} to 0
+                add -1 to {power::%{_player}%}
+                set {l1::%{_player}%} to false
+                send "&cMissing %{_n}% QI for this operation" to {_player}
+                return {_n}
+            else:
+                set {l1c::%{_player}%} to {l1c::%{_player}%} - {_n}
+                set {l1::%{_player}%} to false
+                return 0
+    else:
+        send "&cMissing %{_n} - ({l3c::%{_player}%} + {l2c::%{_player}%} + {l1c::%{_player}%})% QI for this operation" to {_player}
+        return {_n}
+
+command /fixWI:
+    trigger:
+        set {QIBall} to player's tool 
+
+command /condenseQI [<number>] [<number>]:
+    trigger:
+        if arg-2 is 2:
+            set {_n} to arg-1 * 2000
+        else:
+            set {_n} to arg-1 * 1000
+            set {_leftovers} to {_n} - removeCulti(player, {_n})
+            set {_leftovers} to {_leftovers} - mod({_leftovers},1000)
+            loop {_leftovers}/1000 times:
+                give player {QIBall}
+
+command /cheatCulti [<number>]:
+    trigger:
+        if player is op:
+            set {additional::%player%} to arg-1
+
+########
+on death:
+    if {alive::%victim%} is true:
+        delete {alive::%victim%}
+        set {stop::%victim%} to false
+        send "&cYou Failed to Breakthrough" to victim
+
+#Failed breakthrough check
+########
+    
+function BreakThrough(player: player):
+    if {bt::%{_player}%} is not true:
+        set {bt::%{_player}%} to true
+    if {stop::%{_player}%} is not true:
+        set {bt::%{_player}%} to false
+        readError({_player},"&cInvalid Syntax")
+    if {bc::%{_player}%} is not set:
+        set {bt::%{_player}%} to false
+        readError({_player},"&cInvalid Syntax")
+    if {l3::%{_player}%} is not true:
+        set {bt::%{_player}%} to false
+        readError({_player},"&cInsufficient Cultivation to use this")
+    if {bt::%{_player}%} is true:
+        if {bc::%{_player}%} is gray:
+            if {realm::%{_player}%} is not light gray stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cBook has allready been used before")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                    
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"gray")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is black:
+            if {realm::%{_player}%} is not gray stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cBook has allready been used before")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 30
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"black")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is brown:
+            if {realm::%{_player}%} is not black stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 80
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"brown")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is red:
+            if {realm::%{_player}%} is not brown stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 160
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"red")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is orange:
+            if {realm::%{_player}%} is not red stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 320
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"orange")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is yellow:
+            if {realm::%{_player}%} is not orange stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 640
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"yellow")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is lime:
+            if {realm::%{_player}%} is not yellow stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 1080
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"lime")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is green:
+            if {realm::%{_player}%} is not lime stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 1080 * 4
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"green")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is cyan:
+            if {realm::%{_player}%} is not green stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 1080 * 16
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"cyan")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is light blue:
+            if {realm::%{_player}%} is not cyan stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 1080 * 64
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"blue")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is blue:
+            if {realm::%{_player}%} is not light blue stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 1080 * 256
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"cyan")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is purple:
+            if {realm::%{_player}%} is not blue stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 1080 * 256 * 4
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"purple")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is magenta:
+            if {realm::%{_player}%} is not purple stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 1080 * 256 * 16
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"magenta")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is pink:
+            if {realm::%{_player}%} is not magenta stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        delete {stats::%{_temp}'s UUID%}
+                        delete {power::%{_temp}'s UUID%}
+                        make {_temp} damage {_player} by 1080 * 256 * 256
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"pink")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+        else if {bc::%{_player}%} is white:
+            if {realm::%{_player}%} is not pink stained glass pane:
+                set {bt::%{_player}%} to false
+                readError({_player}, "&cYou cannot use this book")
+            else:
+                set {alive::%{_player}%} to true
+                loop 50 times:
+                    if {alive::%{_player}%} is true:
+                        wait 1 second
+                        make {_player} execute command "/summon minecraft:lightning_bolt"
+                        summon zombie 3 blocks above {_player}
+                        set {_temp} to last spawned zombie
+                        damage {_player} by 100
+                        set {_loc} to location at 0, -65, 0 in world "world"
+                        teleport {_temp} to {_loc}
+                set {bt::%{_player}%} to false
+                if {alive::%{_player}%} is true:
+                    delete {alive::%{_player}%}
+                    changeRealm({_player},"white")
+                    send "&aYou Succsessfully brokethrough" to {_player}
+                    orc2({_player})
+            
+on eat:
+    if name of event-item is "&6Power Pill":
+        add 3000 to {power::%player%}
+        set {_temp} to {power::%player%}
+        loop 40 times:
+            wait 1 second
+            if {power::%player%} is not {_temp}:
+                set {power::%player%} to {_temp}
+        add -3010 to {power::%player%}
+    else if name of event-item is "&4Undying Pill":
+        add 15 to {power::%player%}
+           
+command /changerealm [<offline player>] [<text>]:
+    trigger:
+        if player is op:
+            changeRealm(arg-1, arg-2)
+
+on tab complete of "/changerealm":
+    set tab completions for position 2 to "light gray" and "gray" and "black" and "brown" and "red" and "orange" and "yellow" and "lime" and "green" and "cyan" and "light blue" and "blue" and "purple" and "magenta" and "pink" and "white" and "undying" and "admin" 
+
+        
+command /fullinfo [<offline player>]:
+    trigger:
+        open chest inventory with 2 rows named "&cPlayer %arg-1%'s info" to player
+        set slot 0 of player's current inventory to {realm::%arg-1%} named "&bRealm"
+        set slot 2 of player's current inventory to coal named "Layer 1: %100 * ({l1c::%arg-1%}/{lg1::%arg-1%})%%%"
+        set slot 3 of player's current inventory to iron ingot named "Layer 2: %100 * ({l2c::%arg-1%}/{lg2::%arg-1%})%%%"
+        set slot 4 of player's current inventory to diamond named "Layer 3: %100 * ({l3c::%arg-1%}/{lg3::%arg-1%})%%%"
+        set slot 11 of player's current inventory to stick named "RAL1: %{l1c::%arg-1%}%/%{lg1::%arg-1%}%"
+        set slot 12 of player's current inventory to carrot named "RAL2: %{l2c::%arg-1%}%/%{lg2::%arg-1%}%"
+        set slot 13 of player's current inventory to golden carrot named "RAL3: %{l3c::%arg-1%}%/%{lg3::%arg-1%}%"
+        set slot 9 of player's current inventory to barrier named "Power: &c%{power::%arg-1%}%"
+
+on inventory click:
+    if name of player's current inventory contains "&cPlayer":
+        cancel event
+
+command /log:
+    trigger:
+        spawn zombie 2 blocks above player's location
+
+
+function ifIn(t: object, list: objects) :: boolean:
+    loop {_list::*}:
+        if {_t} is loop-value:
+            return true
+    return false
+
+
+on despawn:
+    if {loc::%event-entity's UUID%} is set:
+        add -1 to {ms}
+    kill event-entity
+
+command /refreshWorld:
+    trigger:
+        if player is op:
+            make console execute command "kill @e[type=!player]"
+            make console execute command "kill @e[type=item]"
+            wait 2 seconds
+            make player execute command "cms"
+ 
+
+command /cms:
+    trigger:
+        send "%{ms}%" to player
+
+
+            
+
+
+command /locateMob [<text>]:
+    trigger:
+        if player is op:
+            loop all monsters:
+                if {%arg-1%::%loop-value's UUID%} is set:
+                    set {_m1} to text component from "Mob found msg" 
+                    set {_m} to text component from "&a&lClick Here to teleport"
+                    set click event of {_m} to a new click event to run command "/tp %x-coordinate of loop-value's location% %y-coordinate of loop-value's location% %z-coordinate of loop-value's location%"
+                    component replace "msg" with {_m} in {_m1}
+                    send " " to player
+                    send component {_m1} to player
+                    send " " to player
+                    set {_f} to true
+                    stop
+            if {_f} is not true:
+                send "&cNo Mob Found"
+
+on tab complete of "/locateMob":
+    set tab completions for position 1 to "und" and "w" and "pi" and "m" and "p" and "bl" and "lb" and "c" and "gr" and "l" and "y" and "o" and "r" and "br" and "b" and "g" and "lg"
+
+on spawn:
+    if {ms} is not set:
+        set {ms} to 0
+    if event-entity is not a bat or cod or salmon or tropical fish or pufferfish or squid or item or creeper:
+        if event-entity is a monster or a iron golem:
+            chance of 16%:
+                add event-entity's UUID to {specialMobs::*}
+                set {lg::%event-entity's UUID%} to true
+                set {loc::%event-entity's UUID%} to true
+                set {x::%event-entity's UUID%} to event-entity
+                set display name of event-entity to "&7Light Gray %event-entity%"
+                add 1 to {ms}
+            chance of 15%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {g::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&8Gray %event-entity%"
+                    add 1 to {ms}
+            chance of 14%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {b::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&0Black %event-entity%"
+                    add 1 to {ms}
+            chance of 13%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {br::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&3Brown %event-entity%"
+                    add 1 to {ms}
+            chance of 12%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {r::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&cRed %event-entity%"
+                    add 1 to {ms}
+            chance of 11%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {o::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&6Orange %event-entity%"
+                    add 1 to {ms}
+            chance of 10%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {y::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&eYellow %event-entity%"
+                    add 1 to {ms}
+            chance of 9%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {l::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&aLime %event-entity%"
+                    add 1 to {ms}
+            chance of 8%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {gr::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&2Green %event-entity%"
+                    add 1 to {ms}
+            chance of 7%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {c::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&3Cyan %event-entity%"
+                    add 1 to {ms}
+            chance of 6%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {lb::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&bLight Blue %event-entity%"
+                    add 1 to {ms}
+            chance of 5%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {bl::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&1Blue %event-entity%"
+                    add 1 to {ms}
+            chance of 4%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {p::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&5Purple %event-entity%"
+                    add 1 to {ms}
+            chance of 3%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {m::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&5Magenta %event-entity%"
+                    add 1 to {ms}
+            chance of 2%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {pi::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&dPink %event-entity%"
+                    add 1 to {ms}
+            chance of 1%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {w::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&fWhite %event-entity%"
+                    add 1 to {ms}
+            chance of 0.1%:
+                if not ifIn(event-entity's UUID,{specialMobs::*}):
+                    add event-entity's UUID to {specialMobs::*}
+                    set {und::%event-entity's UUID%} to true
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    set display name of event-entity to "&4Supream %event-entity%"
+                    send "&4A Undying Mob has spawned at %x-coordinate of event-entity's location% %y-coordinate of event-entity's location% %z-coordinate of event-entity's location%" to all players
+                    add 1 to {ms}
+            if {loc::%event-entity's UUID%} is not true:
+                loop all players:
+                    if {_d} is not set:
+                        set {_d} to distance between loop-player and event-entity
+                        set {_cp} to loop-player
+                    if distance between loop-player and event-entity < {_d}:
+                        set {_d} to distance between loop-player and event-entity
+                        set {_cp} to loop-player
+                set {_r} to {realm::%{_cp}'s UUID%}
+                if true is true:
+                    if {_r} is light gray stained glass pane:
+                        set {g::%event-entity's UUID%} to true
+                    else if {_r} is gray stained glass pane:
+                        set {b::%event-entity's UUID%} to true
+                    else if {_r} is black stained glass pane:
+                        set {br::%event-entity's UUID%} to true
+                    else if {_r} is brown stained glass pane:
+                        set {r::%event-entity's UUID%} to true
+                    else if {_r} is red stained glass pane:
+                        set {o::%event-entity's UUID%} to true
+                    else if {_r} is orange stained glass pane:
+                        set {y::%event-entity's UUID%} to true
+                    else if {_r} is yellow stained glass pane:
+                        set {l::%event-entity's UUID%} to true
+                    else if {_r} is lime stained glass pane:
+                        set {gr::%event-entity's UUID%} to true
+                    else if {_r} is green stained glass pane:
+                        set {c::%event-entity's UUID%} to true
+                    else if {_r} is cyan stained glass pane:
+                        set {lb::%event-entity's UUID%} to true
+                    else if {_r} is light blue stained glass pane:
+                        set {bl::%event-entity's UUID%} to true
+                    else if {_r} is blue stained glass pane:
+                        set {p::%event-entity's UUID%} to true
+                    else if {_r} is purple stained glass pane:
+                        set {m::%event-entity's UUID%} to true
+                    else if {_r} is magenta stained glass pane:
+                        set {pi::%event-entity's UUID%} to true
+                    else if {_r} is pink stained glass pane:
+                        set {w::%event-entity's UUID%} to true
+                    else if {_r} is white stained glass pane:
+                        set {w::%event-entity's UUID%} to true
+                    else:
+                        set {w::%event-entity's UUID%} to true
+
+                    set {loc::%event-entity's UUID%} to true
+                    set {x::%event-entity's UUID%} to event-entity
+                    add event-entity's UUID to {specialMobs::*}
+                    add 1 to {ms}
+
+
+
+function Gather(player: player):
+    if {gather::%{_player}%} is not true:
+        set {gather::%{_player}%} to true
+    else:
+        set {gather::%{_player}%} to false
+    if {see::%{_player}%} is not true:
+        set {gather::%{_player}%} to false
+    if {stop::%{_player}%} is not true:
+        set {gather::%{_player}%} to false
+    
+function updateInventory(player: player, l: number):
+    if name of {_player}'s current inventory is "&6Core":
+        if {_l} is 1:
+            set slot 2 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 3 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 4 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 5 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 6 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 11 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 15 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 20 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 24 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 29 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 33 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 38 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 39 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 40 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 41 of {_player}'s current inventory to {g1l::%{_player}%}
+            set slot 42 of {_player}'s current inventory to {g1l::%{_player}%}
+        else if {_l} is 2:
+            set slot 12 of {_player}'s current inventory to {g2l::%{_player}%}
+            set slot 13 of {_player}'s current inventory to {g2l::%{_player}%}
+            set slot 14 of {_player}'s current inventory to {g2l::%{_player}%}
+            set slot 21 of {_player}'s current inventory to {g2l::%{_player}%}
+            set slot 23 of {_player}'s current inventory to {g2l::%{_player}%}
+            set slot 30 of {_player}'s current inventory to {g2l::%{_player}%}
+            set slot 31 of {_player}'s current inventory to {g2l::%{_player}%}
+            set slot 32 of {_player}'s current inventory to {g2l::%{_player}%}
+        else:
+            set slot 22 of {_player}'s current inventory to {g3l::%{_player}%}
+
+function openStart(player: player):
+    if {start::%{_player}%} is true:
+        open chest inventory with 5 rows named "&6Core" to {_player}
+        set slot 0 of {_player}'s current inventory to Glass Pane named " "
+        set slot 9 of {_player}'s current inventory to Glass Pane named " "
+        set slot 18 of {_player}'s current inventory to Glass Pane named " "
+        set slot 27 of {_player}'s current inventory to Glass Pane named " "
+        set slot 36 of {_player}'s current inventory to Glass Pane named " "
+        set slot 1 of {_player}'s current inventory to Glass Pane named " "
+        set slot 10 of {_player}'s current inventory to Glass Pane named " "
+        set slot 19 of {_player}'s current inventory to Glass Pane named " "
+        set slot 28 of {_player}'s current inventory to Glass Pane named " "
+        set slot 37 of {_player}'s current inventory to Glass Pane named " "
+        set slot 7 of {_player}'s current inventory to Glass Pane named " "
+        set slot 16 of {_player}'s current inventory to Glass Pane named " "
+        set slot 25 of {_player}'s current inventory to Glass Pane named " "
+        set slot 34 of {_player}'s current inventory to Glass Pane named " "
+        set slot 43 of {_player}'s current inventory to Glass Pane named " "
+        set slot 8 of {_player}'s current inventory to Glass Pane named " "
+        set slot 17 of {_player}'s current inventory to Glass Pane named " "
+        set slot 26 of {_player}'s current inventory to Glass Pane named " "
+        set slot 35 of {_player}'s current inventory to Glass Pane named " "
+        set slot 44 of {_player}'s current inventory to Glass Pane named " "
+        loadCulti({_player})
+        
+function loadCulti(player: player):
+    set slot 2 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 3 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 4 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 5 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 6 of {_player}'s current inventory to {g1l::%{_player}%}
+    
+    set slot 11 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 12 of {_player}'s current inventory to {g2l::%{_player}%}
+    set slot 13 of {_player}'s current inventory to {g2l::%{_player}%}
+    set slot 14 of {_player}'s current inventory to {g2l::%{_player}%}
+    set slot 15 of {_player}'s current inventory to {g1l::%{_player}%}
+    
+    set slot 20 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 21 of {_player}'s current inventory to {g2l::%{_player}%}
+    set slot 22 of {_player}'s current inventory to {g3l::%{_player}%}
+    set slot 23 of {_player}'s current inventory to {g2l::%{_player}%}
+    set slot 24 of {_player}'s current inventory to {g1l::%{_player}%}
+    
+    set slot 29 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 30 of {_player}'s current inventory to {g2l::%{_player}%}
+    set slot 31 of {_player}'s current inventory to {g2l::%{_player}%}
+    set slot 32 of {_player}'s current inventory to {g2l::%{_player}%}
+    set slot 33 of {_player}'s current inventory to {g1l::%{_player}%}
+    
+    set slot 38 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 39 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 40 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 41 of {_player}'s current inventory to {g1l::%{_player}%}
+    set slot 42 of {_player}'s current inventory to {g1l::%{_player}%}
+    
+on inventory click:
+    if name of player's current inventory is "&6Core":
+        cancel event
+        if index of clicked slot is index of player's selected hotbar slot:
+            set {yesclose::%player%} to true
+            close player's inventory
+    
+on inventory close:
+    if name of event-inventory is "&6Core":
+        if {yesclose::%player%} is not true:
+            wait 1 tick
+            openStart(player)
+        else:
+            set {yesclose::%player%} to false
+            orc2(player)
+    
+every 2 ticks:
+    loop all entities:
+        if {stats::%loop-value's UUID%} is set:
+            reset loop-value's display name
+
+every 1 tick:
+    loop all players:
+        loop all entities in radius 20 around loop-player:
+            if {und::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&4Undying %loop-value-2%"
+            else if {w::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&fWhite %loop-value-2%"
+            else if {pi::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&dPink %loop-value-2%"
+            else if {m::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&5Magenta %loop-value-2%"
+            else if {p::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&5Purple %loop-value-2%"
+            else if {bl::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&1Blue %loop-value-2%"
+            else if {lb::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&bLight Blue %loop-value-2%"
+            else if {c::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&3Cyan %loop-value-2%"
+            else if {gr::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&2Green %loop-value-2%"
+            else if {l::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&aLime %loop-value-2%"
+            else if {y::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&eYellow %loop-value-2%"
+            else if {o::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&6Orange %loop-value-2%"
+            else if {r::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&cRed %loop-value-2%"
+            else if {br::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&3Brown %loop-value-2%"
+            else if {b::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&0Black %loop-value-2%"
+            else if {g::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&8Gray %loop-value-2%"
+            else if {lg::%loop-value-2's UUID%} is set:
+                set display name of loop-value-2 to "&7Light Gray %loop-value-2%"
+            
+
+
+
+
+
+function start(player: player):
+    if {start::%{_player}%} is not true:
+        set {start::%{_player}%} to true
+    else:
+        set {start::%{_player}%} to false
+    if {see::%{_player}%} is false:
+        set {start::%{_player}%} to false
+    openStart({_player})
+
+command /heal:
+    trigger:
+        heal player by 10000
+
+command /gb [<text>]:
+    trigger:
+        if arg-1 is set:
+            loop {startingI::*}:
+                give loop-value to player
+        else:
+            add player's tool to {startingI::*}
+
+
+command /setvar [<text>] [<text>]:
+    trigger:
+        if player is op:
+            set {%arg-1%} to arg-2
+command /getUUID:
+    trigger:
+        send "%player's UUID%" to player
+
+command /fix:
+    trigger:
+        kill all monsters
+        set {ms} to 0
+    
+command /e:
+    trigger:
+        make player execute command "/setCulti l1 -100000"
+        make player execute command "/setCulti l2 -300000"
+        make player execute command "/setCulti l3 -500000"
+
+function stop(player: player):
+    if {stop::%{_player}%} is not true:
+        set {stop::%{_player}%} to true
+    else:
+        set {stop::%{_player}%} to false
+
+function see(player: player):
+    if {see::%{_player}%} is not true:
+        set {see::%{_player}%} to true
+    else:
+        set {see::%{_player}%} to false
+
+function updateL1(player: player):
+    set {g1l::%{_player}%} to {realm::%{_player}%} named "%100 * ({l1c::%{_player}%}/{lg1::%{_player}%})%%%"
+
+function updateL2(player: player):
+    set {g2l::%{_player}%} to {realm::%{_player}%} named "%100 * {l2c::%{_player}%}/{lg2::%{_player}%}%%%"
+
+function updateL3(player: player):
+    set {g3l::%{_player}%} to {realm::%{_player}%} named "%100 * {l3c::%{_player}%}/{lg3::%{_player}%}%%%"
+
+function addl3(player: player, add: number):
+    set {l3c::%{_player}%} to {l3c::%{_player}%} + {_add}
+    if {l3c::%{_player}%} >= {lg3::%{_player}%}:
+        set {l3c::%{_player}%} to {lg3::%{_player}%}
+        set {l3::%{_player}%} to true
+        add 1 to {power::%{_player}%}
+        set {g3l::%{_player}%} to {realm::%{_player}%} named "100%%"
+    updateL3({_player})
+        
+function addl2(player: player, add: number):
+    set {l2c::%{_player}%} to {l2c::%{_player}%} + {_add}
+    if {l2c::%{_player}%} >= {lg2::%{_player}%}:
+        set {l2c::%{_player}%} to {lg2::%{_player}%}
+    updateL2({_player})
+    if {l2c::%{_player}%} >= {lg2::%{_player}%}:
+        set {l2::%{_player}%} to true
+        add 1 to {power::%{_player}%}
+        set {l2o::%{_player}%} to true
+    
+function addl1(player: player, add: number):
+    set {l1c::%{_player}%} to {l1c::%{_player}%} + {_add}
+    if {l1c::%{_player}%} >= {lg1::%{_player}%}:
+        set {l1c::%{_player}%} to {lg1::%{_player}%}
+    updateL1({_player})
+    if {l1c::%{_player}%} >= {lg1::%{_player}%}:
+        set {l1::%{_player}%} to true
+        add 1 to {power::%{_player}%}
+        set {l1o::%{_player}%} to true
+
+function addCulti(player: player, a: number = 1):
+    if {additional::%{_player}%} is not set:
+        set {additional::%{_player}%} to 1
+    if {armor::%{_player}%} is not set:
+        set {armor::%{_player}%} to 1
+    set {_add} to 1 * {talent::%{_player}%} * {additional::%{_player}%} * {_a} * {armor::%{_player}%}
+    if {l1::%{_player}%} is true:
+        if {l2::%{_player}%} is true:
+            if {l3::%{_player}%} is true:
+                set {cd::%{_player}%} to true
+                orc2({_player})
+                close {_player}'s inventory
+                if {realm::%{_player}%} is not totem of undying or command block:
+                    send "&7you have maxed out your current realm go find a breakthrough book" to {_player}
+                else:
+                    send "&aYou have reached the Pinical of strenght!" to {_player}
+                wait 5 ticks
+                set {cd::%{_player}%} to false
+            else:
+                addl3({_player},{_add})
+        else:
+            addl2({_player},{_add})
+    else:
+        addl1({_player},{_add})
+                
+
+command /setCulti [<text>] [<number>] [<offline player>]:
+    trigger:
+        if player is op:
+            if arg-3 is not set:
+                set {_arg3} to player
+            else:
+                set {_arg3} to arg-3
+            if arg-1 is "l1":
+                addl1({_arg3},arg-2)
+                set {l1::%{_arg3}%} to false
+            else if arg-1 is "l2":
+                addl2({_arg3}, arg-2)
+                set {l2::%{_arg3}%} to false
+            else if arg-1 is "l3":
+                addl3({_arg3}, arg-2)
+                set {l3::%{_arg3}%} to false
+            else:
+                send "l1: %{l1c::%{_arg3}%}%" to player
+                send "l2: %{l2c::%{_arg3}%}%" to player
+                send "l3: %{l3c::%{_arg3}%}%" to player
+
+on tab complete of "/setCulti":
+    set tab completions for position 1 to "l1" and "l2" and "l3"
+
+
+##############
+every 1 tick:
+    loop all players:
+        if {stop::%loop-player%} is true:
+            if loop-player's location is not {prevloc::%loop-player%}:
+                if {prevloc::%loop-player%} is not set:
+                    set {prevloc::%loop-player%} to loop-player's location
+                else:
+                    teleport loop-player to {prevloc::%loop-player%}
+            if index of loop-player's selected hotbar slot is not {prevslot::%loop-player%}:
+                if {prevslot::%loop-player%} is not set:
+                    set {prevslot::%loop-player%} to index of loop-player's selected hotbar slot
+                else:
+                    set loop-player's hotbar slot to {prevslot::%loop-player%}
+        else:
+            delete {prevloc::%loop-player%}
+            delete {prevslot::%loop-player%}
+
+#stop code implementation
+##############
+
+function dropCore(e: entity) :: object:
+    if {und::%{_e}'s UUID%} is set:
+        set {_drop} to glowing totem of undying named "&lImmortal Monster Core"
+    else if {w::%{_e}'s UUID%} is set:
+        set {_drop} to glowing white dye named "&fWhite Monster Core"
+    else if {pi::%{_e}'s UUID%} is set:
+        set {_drop} to glowing pink dye named "&dPink Monster Core"
+    else if {m::%{_e}'s UUID%} is set:
+        set {_drop} to glowing magenta dye named "&5Magenta Monster Core"
+    else if {p::%{_e}'s UUID%} is set:
+        set {_drop} to glowing purple dye named "&5Purple Monster Core"
+    else if {bl::%{_e}'s UUID%} is set:
+        set {_drop} to glowing blue dye named "&1Blue Monster Core"
+    else if {lb::%{_e}'s UUID%} is set:
+        set {_drop} to glowing light blue dye named "&bLight Blue Monster Core"
+    else if {c::%{_e}'s UUID%} is set:
+        set {_drop} to glowing cyan dye named "&3Cyan Monster Core"
+    else if {gr::%{_e}'s UUID%} is set:
+        set {_drop} to glowing green dye named "&2Green Monster Core"
+    else if {l::%{_e}'s UUID%} is set:
+        set {_drop} to glowing lime dye named "&aLime Monster Core"
+    else if {y::%{_e}'s UUID%} is set:
+        set {_drop} to glowing yellow dye named "&eYellow Monster Core"
+    else if {o::%{_e}'s UUID%} is set:
+        set {_drop} to glowing orange dye named "&6Orange Monster Core"
+    else if {r::%{_e}'s UUID%} is set:
+        set {_drop} to glowing red dye named "&cRed Monster Core"
+    else if {br::%{_e}'s UUID%} is set:
+        set {_drop} to glowing brown dye named "&3Brown Monster Core"
+    else if {b::%{_e}'s UUID%} is set:
+        set {_drop} to glowing black dye named "&0Black Monster Core"
+    else if {g::%{_e}'s UUID%} is set:
+        set {_drop} to glowing gray dye named "&8Gray Monster Core"
+    else if {lg::%{_e}'s UUID%} is set:
+        set {_drop} to glowing light gray dye named "&7Light Gray Monster Core"
+    
+    set lore of {_drop} to "%{stats::%{_e}'s UUID%}%"
+    return {_drop}
+
+command /setGrade [<entity>]:
+    trigger:
+        if player is op:
+            add arg-1's UUID to {specialMobs::*}
+            set {l::%arg-1's UUID%} to true
+            set {loc::%arg-1's UUID%} to true
+            set {x::%arg-1's UUID%} to arg-1
+            wait 2 seconds
+            set max health of arg-1 to 2000
+            send "%max health of {x::%arg-1's UUID%}%"
+
+            
+##############
+on death:
+    if {stats::%victim's UUID%} is set:
+        set {_drops::*} to the drops
+        clear the drops
+        loop {_drops::*}:
+            set {_n} to loop-value
+            set {_drop} to loop-value with name "&bQI Infused %1 of loop-value%"
+            drop {_drop} at victim's location
+        chance of 100%:
+            drop dropCore(victim) at victim's location
+        remove victim's UUID from {specialMobs::*}
+        add -1 to {ms}
+        delete {x::%victim's UUID%}
+        delete {loc::%victim's UUID%}
+        if {lg::%victim's UUID%} is set:
+            delete {lg::%victim's UUID%}
+            set {_da} to 1
+        else if {g::%victim's UUID%} is set:
+            delete {g::%victim's UUID%}
+            set {_da} to 5
+        else if {b::%victim's UUID%} is set:
+            delete {b::%victim's UUID%}
+            set {_da} to 9
+        else if {br::%victim's UUID%} is set:
+            delete {br::%victim's UUID%}
+            set {_da} to 13
+        else if {r::%victim's UUID%} is set:
+            delete {r::%victim's UUID%}
+            set {_da} to 17
+        else if {o::%victim's UUID%} is set:
+            delete {o::%victim's UUID%}
+            set {_da} to 21
+        else if {y::%victim's UUID%} is set:
+            delete {y::%victim's UUID%}
+            set {_da} to 25
+        else if {gr::%victim's UUID%} is set:
+            delete {gr::%victim's UUID%}
+            set {_da} to 33
+        else if {c::%victim's UUID%} is set:
+            delete {c::%victim's UUID%}
+            set {_da} to 37
+        else if {lb::%victim's UUID%} is set:
+            delete {lb::%victim's UUID%}
+            set {_da} to 41
+        else if {bl::%victim's UUID%} is set:
+            delete {bl::%victim's UUID%}
+            set {_da} to 45
+        else if {p::%victim's UUID%} is set:
+            delete {p::%victim's UUID%}
+            set {_da} to 49
+        else if {m::%victim's UUID%} is set:
+            delete {m::%victim's UUID%}
+            set {_da} to 53
+        else if {pi::%victim's UUID%} is set:
+            delete {pi::%victim's UUID%}
+            set {_da} to 57
+        else if {w::%victim's UUID%} is set:
+            delete {w::%victim's UUID%}
+            set {_da} to 61
+        else if {l::%victim's UUID%} is set:
+            delete {l::%victim's UUID%}
+            set {_da} to 29
+        else if {und::%victim's UUID%} is set:
+            delete {und::%victim's UUID%}
+            set {_da} to 99997
+        if {stats::%victim's UUID%} is "&aMid Grade":
+            set {_da} to {_da} * 2
+        else if {stats::%victim's UUID%} is "&6High Grade":
+            set {_da} to {_da} * 3
+        else if {stats::%victim's UUID%} is "&4Supream Grade":
+            set {_da} to {_da} * 10
+        if attacker is a player:
+            addBins(attacker, {_da}/10, "killing %{stats::%victim's UUID%}% %name of victim%")
+            
+            
+
+#special mob drops       
+#############
+
+##############
+every 1 second:
+    loop {specialMobs::*}:
+        if {loc::%loop-value%} is not set:
+            remove loop-value from {specialMobs::*}
+        else:
+            if {stats::%loop-value%} is not set:
+                chance of 55%:
+                    set {stats::%loop-value%} to "&7Low Grade"
+                chance of 22%:
+                    set {stats::%loop-value%} to "&aMid Grade"
+                chance of 9%:
+                    set {stats::%loop-value%} to "&6High Grade"
+                chance of 2%:
+                    set {stats::%loop-value%} to "&4Supream Grade"
+                if {stats::%loop-value%} is not set:
+                    set {stats::%loop-value%} to "&7Low Grade"
+                if {und::%loop-value%} is set:
+                    add 99997 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 99997
+                else if {w::%loop-value%} is set:
+                    add 61 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 61
+                else if {pi::%loop-value%} is set:
+                    add 57 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 57
+                else if {m::%loop-value%} is set:
+                    add 53 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 53
+                else if {p::%loop-value%} is set:
+                    add 49 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 49
+                else if {bl::%loop-value%} is set:
+                    add 45 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 45
+                else if {lb::%loop-value%} is set:
+                    add 41 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 41
+                else if {c::%loop-value%} is set:
+                    add 37 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 37
+                else if {gr::%loop-value%} is set:
+                    add 33 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 33
+                else if {l::%loop-value%} is set:
+                    add 29 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 29
+                else if {y::%loop-value%} is set:
+                    add 25 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 25
+                else if {o::%loop-value%} is set:
+                    add 21 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 21
+                else if {r::%loop-value%} is set:
+                    add 17 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 17
+                else if {br::%loop-value%} is set:
+                    add 13 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 13
+                else if {b::%loop-value%} is set:
+                    add 9 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 9
+                else if {g::%loop-value%} is set:
+                    add 5 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 5
+                else if {lg::%loop-value%} is set:
+                    add 1 to max health of {x::%loop-value%}
+                    set {power::%loop-value%} to 1
+
+
+
+                if {stats::%loop-value%} is "&7Low Grade":
+                    add 1 to {x::%loop-value%}'s max health
+                    add 1 to {power::%loop-value%}
+                else if {stats::%loop-value%} is "&aMid Grade":
+                    add 2 to {x::%loop-value%}'s max health
+                    add 2 to {power::%loop-value%}
+                else if {stats::%loop-value%} is "&6Mid Grade":
+                    add 3 to {x::%loop-value%}'s max health
+                    add 3 to {power::%loop-value%}
+                else:
+                    add 10 to {x::%loop-value%}'s max health
+                    add 10 to {power::%loop-value%}
+                set health of {x::%loop-value%} to {x::%loop-value%}'s max health
+                remove loop-value from {specialMobs::*}
+
+#Special Mob Creation
+##############
+
+###################
+every 1 second:
+    loop all players:
+        if {Gather::%loop-player%} is true:
+            wait 1 tick
+            if {l2::%loop-player%} is true:
+                updateInventory(loop-player,3)
+                if {l2o::%loop-player%} is true:
+                    updateInventory(loop-player,2)
+                    set {l2o::%loop-player%} to false
+            else if {l1::%loop-player%} is true:
+                updateInventory(loop-player,2)
+                if {l1o::%loop-player%} is true:
+                    updateInventory(loop-player,1)
+                    set {l1o::%loop-player%} to false
+            else:
+                updateInventory(loop-player,1)
+
+#QI Gathering updater
+###################
+
+#################
+every 10 ticks:    
+    loop all players:
+        if {see::%loop-player%} is true:
+            loop all blocks in radius 20 of loop-player:
+                if loop-block is air or cave air or void air or water:
+                    if {area::%loop-block's location%} is set:
+                        chance of {area::%loop-block's location%}%:
+                            play glow on loop-block's location to loop-player
+                            if {Gather::%loop-player%} is true:
+                                if {cd::%loop-player%} is not true:
+                                    addCulti(loop-player)
+                    else:
+                        chance of 1%:
+                            play glow on loop-block's location to loop-player
+                            if {Gather::%loop-player%} is true:
+                                if {cd::%loop-player%} is not true:
+                                    if {gCache::%loop-player%} >= 25 ? 0:
+                                        addCulti(loop-player, {gCache::%loop-player%})
+                                        set {gCache::%loop-player%} to 0
+                                    else:
+                                        add 1 to {gCache::%loop-player%}
+
+                                    
+
+#Qi Adder/ See Partical spawner
+#################

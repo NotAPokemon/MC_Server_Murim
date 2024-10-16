@@ -1,0 +1,56 @@
+on damage:
+    if IsNpc(victim):
+        if {yk::%victim's UUID%} is not set:
+            cancel event
+        else:
+            kill victim
+
+
+function IsNpc(e: entity) :: boolean:
+    if display name of {_e} is "&aTutorial Villager" or "&6Auction House" or "&eRandom Teleport":
+        return true
+    return false
+
+
+
+function NpcType(e: entity, p: player):
+    if display name of {_e} is "&aTutorial Villager":
+        send "&aYou can Progress by completing objectives on the scoreboard" to {_p}
+        wait 2 second
+        send "&aTo use a &7Breakthrough book &aor &7Method book &ashift right click" to {_p}
+        wait 2 second
+        send "&aTo use the &c&nRepulse Ring &aor &cInfo Plate &aright click" to {_p}
+        wait 2 second
+        send "&aFor more info do /tutorial" to {_p}
+    else if display name of {_e} is "&6Auction House":
+        make {_p} execute command "/shop buy"
+    else if display name of {_e} is "&eRandom Teleport":
+        make console execute command "/mvtp %{_p}% world"
+        send "&aUse /spawn to go back" to {_p}
+
+
+on click:
+    if event-entity is set:
+        if IsNpc(event-entity):
+            cancel event
+            NpcType(event-entity, player)
+
+command /setDisplayName [<entity>] [<text>]:
+    trigger:
+        if player is op:
+            set display name of arg-1 to TextToColor(arg-2)
+
+on tab complete of "/setDisplayName":
+    add UUID of target entity of player to tab completions for position 1
+
+
+command /killNPC [<entity>]:
+    trigger:
+        if player is op:
+            set {yk::%arg-1%'s UUID} to true
+            kill arg-1
+            delete {yk::%arg-1's UUID%}
+
+
+on tab complete of "/killNPC":
+    add UUID of target entity of player to tab completions for position 1

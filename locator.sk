@@ -1,0 +1,70 @@
+on right click:
+    if name of player's tool is "&cLocator":
+        if lore of player's tool is not set:
+            open chest inventory with 1 rows named "&cLocator" to player
+            set slot 8 of player's current inventory to emerald named "&dSave"
+            loop 7 times:
+                set slot 0 + loop-value of player's current inventory to light gray stained glass pane named "&7<-----"
+        else:
+            set {_i} to {locator::%line 1 of lore of player's tool%}
+            if true is true:
+                if name of {_i} is "&7Light Gray Monster Core":
+                    set {_j} to "lg"
+                else if name of {_i} is "&8Gray Monster Core":
+                    set {_j} to "g"
+                else if name of {_i} is "&0Black Monster Core":
+                    set {_j} to "b"
+                else if name of {_i} is "&3Brown Monster Core":
+                    set {_j} to "br"
+                else if name of {_i} is "&cRed Monster Core":
+                    set {_j} to "r"
+                else if name of {_i} is "&6Orange Monster Core":
+                    set {_j} to "o"
+                else if name of {_i} is "&eYellow Monster Core":
+                    set {_j} to "y"
+                else if name of {_i} is "&aLime Monster Core":
+                    set {_j} to "l"
+                else if name of {_i} is "&2Green Monster Core":
+                    set {_j} to "gr"
+                else if name of {_i} is "&3Cyan Monster Core":
+                    set {_j} to "c"
+                else if name of {_i} is "&bLight Blue Monster Core":
+                    set {_j} to "lb"
+                else if name of {_i} is "&1Blue Monster Core":
+                    set {_j} to "bl"
+                else if name of {_i} is "&5Purple Monster Core":
+                    set {_j} to "p"
+                else if name of {_i} is "&5Magenta Monster Core":
+                    set {_j} to "m"
+                else if name of {_i} is "&dPink Monster Core":
+                    set {_j} to "pi"
+                else if name of {_i} is "&fWhite Monster Core":
+                    set {_j} to "w"
+                else:
+                    send "&cError Invalid Item" to player
+                    delete line 1 of lore of player's tool
+                    delete {locator::%line 1 of lore of player's tool%}
+            if {uses::%line 1 of lore of player's tool%} > 0:
+                loop all monsters:
+                    if {%{_j}%::%loop-value's UUID%} is set:
+                        if {stats::%loop-value's UUID%} is line 1 of lore of {_i} or "&4Supream Grade":
+                            add -1 to {uses::%line 1 of lore of player's tool%}
+                            send "%loop-value% Found at x: %x-coordinate of loop-value's location% y: %y-coordinate of loop-value's location% z: %z-coordinate of loop-value's location%" to player
+                            stop
+            else:
+                send "&cYour Locator Broke" to player
+                remove player's tool from player's inventory
+                stop
+            send "&cNo Mob Found" to player
+
+on inventory click:
+    if name of clicked slot is "&7<-----" or "&dSave":
+        if clicked slot is a emerald:
+            if slot 0 of player's current inventory is set:
+                set line 1 of lore of player's tool to randomUID(7)
+                set {locator::%line 1 of lore of player's tool%} to 1 of slot 0 of player's current inventory
+                set {uses::%line 1 of lore of player's tool%} to 10
+                give player slot 0 of player's current inventory
+                close player's inventory
+                send "&aLocator set to % {locator::%line 1 of lore of player's tool%}%" to player
+        cancel event

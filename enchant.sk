@@ -1,0 +1,127 @@
+on right click:
+    if event-block is a crafting table:
+        if name of player's tool is not set:
+            if player's tool is not air:
+                loop lore of player's tool:
+                    if loop-value contains "&7QI Mending":
+                        set {_QiMend} to false
+                    else if loop-value contains "&7Cultivation Speed":
+                        set {_CultiSpeed} to false
+                if player's tool is not a sword or a pickaxe or a helmet or a chestplate or a boots or a leggings:
+                    set {_QiMend} to false
+                if player's tool is not a helmet or a chestplate or a boots or a leggings:
+                    set {_CultiSpeed} to false
+                if {_QiMend} is not set:
+                    loop 3 times:
+                        set {_i} to 1 of player's tool
+                        add "&7QI Mending %loop-value%" to lore of {_i}
+                        set {_i} to glowing {_i}
+                        set {_u} to enchanted book with lore "&7QI Mending %loop-value%"
+                        set {_i2} to 1 of player's tool
+                        register new shapeless recipe for {_i} using {_u}, {_i2}, air, air, air, air, air ,air and air with id "QI_Mending_%loop-value%_%player's tool%"
+                else:
+                    loop 2 times:
+                        set {_i} to 1 of player's tool
+                        set {_tim} to 0
+                        loop lore of {_i}:
+                            add 1 to {_tim}
+                            if loop-value-2 contains "&7QI Mending":
+                                set {_n} to {_tim}
+                        set line {_n} of lore of {_i} to "&7QI Mending %loop-value + 1%"
+                        set {_u} to enchanted book with lore "&7QI Mending %loop-value%"
+                        set {_i2} to 1 of player's tool
+                        register new shapeless recipe for {_i} using {_u}, {_i2}, air, air, air, air, air ,air and air with id "QI_Mending_%loop-value + 1%_%player's tool%_Inc"
+
+                if {_CultiSpeed} is not set:
+                    loop 20 times:
+                        set {_i} to 1 of player's tool
+                        add "&7Cultivation Speed %loop-value%" to lore of {_i}
+                        set {_i} to glowing {_i}
+                        set {_u} to enchanted book with lore "&7Cultivation Speed %loop-value%"
+                        set {_i2} to 1 of player's tool
+                        register new shapeless recipe for {_i} using {_u}, {_i2}, air,air,air,air,air,air and air with id "Culti_Speed_%loop-value%_%player's tool%"
+                else:
+                    loop 19 times:
+                        set {_i} to 1 of player's tool
+                        set {_tim} to 0
+                        loop lore of {_i}:
+                            add 1 to {_tim}
+                            if loop-value-2 contains "&7Cultivation Speed":
+                                set {_n} to {_tim}
+                        set line {_n} of lore of {_i} to "&7Cultivation Speed %loop-value + 1%"
+                        set {_u} to enchanted book with lore "&7Cultivation Speed %loop-value%"
+                        set {_i2} to 1 of player's tool
+                        register new shapeless recipe for {_i} using {_u}, {_i2}, air, air, air, air, air ,air and air with id "Culti_Speed_%loop-value + 1%_%player's tool%_Inc"
+
+
+
+command /checkArmor:
+    trigger:
+        send "%{armor::%player%}%" to player
+
+
+
+
+every 3 ticks:
+    loop all players:
+        loop 4 times:
+            if {wArmor::%loop-player%::%loop-value-2%} is not true:
+                set {_prevW} to false
+            else:
+                set {_prevW} to true
+            if slot 35 + loop-value-2 of loop-player's inventory is not air:
+                set {wArmor::%loop-player%::%loop-value-2%} to true
+            else:
+                set {wArmor::%loop-player%::%loop-value-2%} to false
+            
+            set {_l::*} to lore of slot 35 + loop-value-2 of loop-player's inventory
+            loop {_l::*}:
+                if loop-value-3 contains "&7Cultivation Speed":
+                    if {_prevW} is false:
+                        set {d::%loop-value-2%::%loop-player%} to subtext of loop-value-3 from characters 21 to length of loop-value-3 parsed as integer
+                        add {d::%loop-value-2%::%loop-player%} to {armor::%loop-player%}
+            if {_prevW} is true:
+                if {wArmor::%loop-player%::%loop-value-2%} is false:
+                    add 0 - {d::%loop-value-2%::%loop-player%} to {armor::%loop-player%}
+
+
+
+on mine:
+    set {_l::*} to lore of player's tool
+    loop {_l::*}:
+        if loop-value contains "&7QI Mending":
+            set {_d} to subtext of loop-value from characters 11 to length of loop-value parsed as integer
+            set {_rm} to 1 - ({_d}/3)
+            set {_h} to block hardness of event-block
+            set {_drm} to {_h} * 5
+            set {_rm} to {_drm} * {_rm}
+            if removeCulti(player,{_rm}) is 0:
+                wait 1 tick
+                add {_drm} to durability of player's tool
+
+
+
+
+on damage:
+    set {_l::*} to lore of attacker's tool
+    loop {_l::*}:
+        if loop-value contains "&7QI Mending":
+            set {_d} to subtext of loop-value from characters 11 to length of loop-value parsed as integer
+            set {_rm} to 1 - ({_d}/3)
+            set {_drm} to the damage * 100
+            set {_rm} to {_drm} * {_rm}
+            if removeCulti(attacker,{_rm}) is 0:
+                wait 1 tick
+                add {_drm} to durability of attacker's tool
+
+    loop 4 times:
+        set {_l::*} to lore of slot 35 + loop-value-1 of victim's inventory
+        loop {_l::*}:
+            if loop-value-2 contains "&7QI Mending":
+                set {_d} to subtext of loop-value-2 from characters 11 to length of loop-value-2 parsed as integer
+                set {_rm} to 1 - ({_d}/3)
+                set {_drm} to the damage * 10
+                set {_rm} to {_drm} * {_rm}
+                if removeCulti(victim,{_rm}) is 0:
+                    wait 1 tick
+                    add {_drm} to durability of slot 35 + loop-value-1 of victim's inventory

@@ -1,0 +1,46 @@
+
+on left click:
+    if name of player's tool is "&6Wand":
+        if event-block is set:
+            set {pos1.%player%} to event-block's location
+            cancel event
+            send "&dPos 1: x:%x-coordinate of event-block's location% y:%y-coordinate of event-block's location% z:%z-coordinate of event-block's location%" to player
+
+on right click:
+    if name of player's tool is "&6Wand":
+        if event-block is set:
+            set {pos2.%player%} to event-block's location
+            cancel event
+            send "&dPos 2: x:%x-coordinate of event-block's location% y:%y-coordinate of event-block's location% z:%z-coordinate of event-block's location%" to player
+
+
+
+command //set [<text>]:
+    trigger:
+        set {_xv} to abs(x-coordinate of {pos2.%player%} - x-coordinate of {pos1.%player%}) + 1
+        set {_yv} to abs(y-coordinate of {pos2.%player%} - y-coordinate of {pos1.%player%}) + 1
+        set {_zv} to abs(z-coordinate of {pos2.%player%} - z-coordinate of {pos1.%player%}) + 1
+        if x-coordinate of {pos1.%player%} < x-coordinate of {pos2.%player%}:
+            set {_dx} to -1
+        else:
+            set {_dx} to 0 - {_xv}
+        if z-coordinate of {pos1.%player%} < z-coordinate of {pos2.%player%}:
+            set {_dz} to -1
+        else:
+            set {_dz} to 0 - {_zv}
+        loop {_xv} times:
+            loop {_yv} times:
+                loop {_zv} times:
+                    set {_x} to x-coordinate of {pos1.%player%} + {_dx} + loop-value-1
+                    set {_y} to y-coordinate of {pos1.%player%} - {_yv} + loop-value-2 
+                    set {_z} to z-coordinate of {pos1.%player%} + {_dz} + loop-value-3
+                    set {_loc} to location at {_x}, {_y}, {_z} in world world of player's location
+                    set block at {_loc} to arg-1 parsed as block data
+                   
+   
+command /wand:
+    trigger:
+        if player is op:
+            give player glowing wooden axe named "&6Wand"
+
+

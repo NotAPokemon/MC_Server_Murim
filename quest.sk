@@ -1,0 +1,99 @@
+on join:
+    if {questN::%player%} is not set:
+        set {questN::%player%} to 0
+        send "&eShift Right Click the book"
+        set {questTxt::%player%} to "&eObjective: Max Light Gray Glass Pane Realm"
+        set {questComp::%player%} to 1
+        set {questProg::%player%} to 0
+
+
+
+
+function completeQuest(player: player, n: number):
+    set {questN::%{_player}%} to {_n} + 1
+    send "&aQuest completed check for the next Quest" to {_player}
+    addBins({_player}, 2, "Quest completetion")
+    set {questTxt::%{_player}%} to " "
+    set {questComp::%{_player}%} to " "
+    set {questProg::%{_player}%} to " "
+    wait 1 second
+    giveQuest({_player})
+
+function giveQuest(p: player):
+    if {questN::%{_p}%} is 1:
+        set {questTxt::%{_p}%} to "&eObjective: Obtain 4 QI Infused Rotten flesh"
+        set {questComp::%{_p}%} to 4
+        set {questProg::%{_p}%} to 0
+    else if {questN::%{_p}%} is 2:
+        set {questTxt::%{_p}%} to "&eObjective: Obtain 1 book"
+        set {questComp::%{_p}%} to 1
+        set {questProg::%{_p}%} to 0
+    else if {questN::%{_p}%} is 3:
+        set {questTxt::%{_p}%} to "&eObjective: kill 4 enderman"
+        set {questComp::%{_p}%} to 4
+        set {questProg::%{_p}%} to 0
+    else if {questN::%{_p}%} is 4:
+        set {questTxt::%{_p}%} to "&eObjective: craft 1 &7Gray Breakthrough Book"
+        set {questComp::%{_p}%} to 1
+        set {questProg::%{_p}%} to 0
+    else:
+        set {questTxt::%{_p}%} to "&eObjective: None"
+        set {questComp::%{_p}%} to 0
+        set {questProg::%{_p}%} to 0
+
+command /checkQuest:
+    trigger:
+        send "%{questTxt::%player%}%" to player
+
+on death:
+    if victim is a enderman:
+        if {questN::%attacker%} is 3:
+            add 1 to {questProg::%attacker%}
+            if {questProg::%attacker%} >= 5:
+                completeQuest(attacker, 3)
+
+every 1 tick:
+    loop all players:
+        if {questN::%loop-player%} is 0:
+            if {realm::%loop-player%} is not Light gray stained glass pane:
+                completeQuest(loop-player,0)
+            else if {l3::%loop-player%} is true:
+                completeQuest(loop-player,0)
+        else if {questN::%loop-player%} is 1:
+            loop all items in loop-player's inventory:
+                if name of loop-value-2 is "&bQI Infused rotten flesh":
+                    if {prv::%loop-player%} is not set:
+                        if item amount of loop-value-2 >= 4:
+                            completeQuest(loop-player,1)
+                        else:
+                            set {prv::%loop-player%} to item amount of loop-value-2
+                            set {questProg::%loop-player%} to {prv::%loop-player%}
+                    else if item amount of loop-value-2 > {prv::%loop-player%}:
+                        set {prv::%loop-player%} to item amount of loop-value-2
+                        if {prv::%loop-player%} >= 4:
+                            completeQuest(loop-player,1)
+                            delete {prv::%loop-player%}
+                        set {questProg::%loop-player%} to {prv::%loop-player%}
+                    else:
+                        set {questProg::%loop-player%} to {prv::%loop-player%}
+        else if {questN::%loop-player%} is 2:
+            loop all items in loop-player's inventory:
+                if loop-value-2 is a book:
+                    set {questProg::%loop-player%} to 1
+                    completeQuest(loop-player, 2)
+        else if {questN::%loop-player%} is 4:
+            loop all items in loop-player's inventory:
+                if name of loop-value-2 is "&7Gray Breakthrough Book":
+                    set {questProg::%loop-player%} to 1
+                    completeQuest(loop-player, 4)
+                else if {power::%loop-player%} >= 5:
+                    set {questProg::%loop-player%} to 1
+                    completeQuest(loop-player, 4)
+        if {questTxt::%loop-player%} is "&eObjective: None":
+            giveQuest(loop-player)
+
+
+
+                        
+
+

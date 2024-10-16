@@ -1,0 +1,40 @@
+on join:
+    if {played::%player%} is not true:
+        teleport player to location at 0, 65, 0 in world "Spawn"
+    if player is op:
+        set {build::%player%} to true
+
+
+command /spawn:
+    trigger:
+        teleport player to location at 0, 65, 0 in world "Spawn"
+
+command /build [<offline player>] [<boolean>]:
+    trigger:
+        if player is op:
+            if arg-1 is not set:
+                set {_p} to player's UUID
+            else:
+                set {_p} to arg-1's UUID
+            if arg-2 is not set:
+                set {_a2} to true
+            else:
+                set {_a2} to arg-2
+            set {build::%{_p}%} to {_a2}
+            if {build::%{_p}%}:
+                send "&aEnabled build for %{_p}%" to player
+            else:
+                send "&cDisabled build for %{_p}%" to player
+
+
+on block break:
+    if world of player is "Spawn":
+        if {build::%player%} is not true:
+            cancel event
+            send "&cYou cannot break blocks here" to player
+
+on place:
+    if world of player is "Spawn":
+        if {build::%player%} is not true:
+            cancel event
+            send "&cYou cannot place blocks here" to player

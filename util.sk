@@ -1,0 +1,137 @@
+
+
+on load:
+    loop all players:
+        if {maxhomes::%loop-player%} is not set:
+            set {maxhomes::%loop-player%} to 2
+        if {homes::%loop-player%} is not set:
+            set {homes::%loop-player%} to 0
+
+
+command /dupe [<number>]:
+    trigger:
+        if player is op:
+            set {_i} to 1 of player's tool
+            set {_n} to arg-1
+            set {_it} to {_n} of {_i}
+            give {_it} to player
+            
+command /craft:
+    trigger:
+        open crafting table to player
+
+command /home [<text>] [<text>] [<offline player>]:
+    trigger:
+        if arg-1 is "set":
+            if arg-2 is set:
+                if {homes::%player%} < {maxhomes::%player%}:
+                    set {home::%player%::%arg-2%} to player's location
+                    add 1 to {homes::%player%}
+                    add arg-2 to {homeNames::%player%::*}
+                    send "&aYou Succsessfully set home %arg-2% to x:%x-coordinate of player's location% y:%y-coordinate of player's location% z:%z-coordinate of player's location%" to player
+                else:
+                    send "&cYou Have too Many homes for this action %{homes::%player%}%/%{maxhomes::%player%}%" to player
+            else:
+                send "&cYou must name the home" to player
+        else if arg-1 is "delete" or "del":
+            if arg-2 is set:
+                delete {home::%player%::%arg-2%}
+                send "&aYou Succsessfully deleted home %arg-2%" to player
+                remove arg-2 from {homeNames::%player%::*}
+                add -1 to {homes::%player%}
+            else:
+                send "&cYou must specify a home to delete" to player
+        else if arg-1 is "teleport" or "tp":
+            if arg-2 is set:
+                teleport player to {home::%player%::%arg-2%} 
+            else:
+                send "&cYou must specify a home to teleport to" to player
+        else if arg-1 is "setmax":
+            if player is op:
+                if arg-2 is set:
+                    set {_n} to arg-2 parsed as number
+                    if arg-3 is set:
+                        set {maxhomes::%arg-3%} to {_n}
+                    else:
+                        set {maxhomes::%player%} to {_n}
+                else:
+                    send "&cYou must specify a number to set" to player
+            else:
+                send "&cYou dont have permmission to run this command" to player
+            
+
+
+command /fixPower:
+    trigger:
+        if player is op:
+            set {power::%player%} to 12
+
+command /teleportMob [<text>] [<text>]:
+    trigger:
+        if player is op:
+            if arg-1 is "low":
+                loop all monsters:
+                    if {stats::%loop-value's UUID%} is "&7Low Grade":
+                        if {%arg-2%::%loop-value's UUID%} is set:
+                            teleport loop-value to player's location
+                            stop
+            else if arg-1 is "mid":
+                loop all monsters:
+                    if {stats::%loop-value's UUID%} is "&aMid Grade":
+                        if {%arg-2%::%loop-value's UUID%} is set:
+                            teleport loop-value to player's location
+                            stop
+            else if arg-1 is "high":
+                loop all monsters:
+                    if {stats::%loop-value's UUID%} is "&6High Grade":
+                        if {%arg-2%::%loop-value's UUID%} is set:
+                            teleport loop-value to player's location
+                            stop
+            else if arg-1 is "sp":
+                loop all monsters:
+                    if {stats::%loop-value's UUID%} is "&4Supream Grade":
+                        if {%arg-2%::%loop-value's UUID%} is set:
+                            teleport loop-value to player's location
+                            stop
+
+on tab complete of "/teleportMob":
+    set tab completions for position 1 to "low" and "mid" and "high" and "sp"
+    set tab completions for position 2 to "und" and "w" and "pi" and "m" and "p" and "bl" and "lb" and "c" and "gr" and "l" and "y" and "o" and "r" and "br" and "b" and "g" and "lg"
+
+
+
+command /trash:
+    trigger:
+        open chest inventory with 6 rows named "&0Trash Can" to player
+
+command /addQI [<offline player>] [<number>]:
+    trigger:
+        if player is op:
+            ca(arg-1, arg-2)
+
+command /feed:
+    trigger:
+        if player is op:
+            set hunger of player to 1000000
+
+on tab complete of "/home":
+    set tab completions for position 1 to "set" and "delete" and "teleport"
+    if player is op:
+        add "setmax" to tab completions for position 1
+    loop {homeNames::%player%::*}:
+        add loop-value to tab completions for position 2
+    
+     
+function regex(n: object) :: text:
+    if "%{_n}%" contains ".":
+        set {_s::*} to split "%{_n}%" at "."
+        set {_n} to "%a({_s::1})%.%last 2 characters of {_s::2}%"
+        return "%{_n}%"
+    else:
+        set {_n} to a("%{_n}%")
+        return "%{_n} ? 0%"
+function a(b: text) :: text:
+    if length of {_b} > 3:
+        return "%a(first length of {_b} - 3 characters of {_b})%,%last 3 characters of {_b}%"
+    return {_b}
+
